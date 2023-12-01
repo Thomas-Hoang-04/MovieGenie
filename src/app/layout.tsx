@@ -22,9 +22,6 @@ export default function RootLayout({
       lang="en"
       className={`${Blockletter.className} ${Hauora.className}`}
       suppressHydrationWarning>
-      <head>
-        <link rel="stylesheet" href="reset.css" />
-      </head>
       <body className="dark:bg-dark bg-neutral-200 bg-opacity-[0.5]">
         <Suspense fallback={<Loading />}>
           <Provider>
