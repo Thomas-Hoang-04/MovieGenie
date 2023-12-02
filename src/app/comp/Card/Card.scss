@@ -1,0 +1,15 @@
+@tailwind components;
+
+@layer components {
+  .card {
+    @apply flex flex-col my-6 gap-2 p-6 rounded-xl shadow-lg dark:shadow-none bg-white dark:bg-teal-800;
+  }
+
+  .card__title {
+    @apply text-2xl mt-2 font-bold text-teal-600 dark:text-neutral-200;
+  }
+
+  .card__date {
+    @apply text-lg italic font-semibold text-teal-700/60 dark:text-neutral-300;
+  }
+}

@@ -1,0 +1,15 @@
+@tailwind components;
+
+@layer components {
+  .search {
+    @apply flex items-center gap-4;
+  }
+
+  .search-box {
+    @apply rounded-full pl-4 focus-visible:ring-offset-0 dark:focus-visible:ring-teal-500 focus-visible:ring-teal-700 dark:bg-slate-800 dark:placeholder:text-neutral-300 dark:placeholder:text-opacity-90 placeholder:font-medium placeholder:italic;
+  }
+
+  .search-btn {
+    @apply rounded-full w-10 h-10 dark:bg-slate-200 text-[0.75rem] bg-teal-600 hover:bg-teal-500;
+  }
+}
