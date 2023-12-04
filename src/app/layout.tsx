@@ -6,9 +6,22 @@ import Header from "./comp/Header/Header";
 import NavBar from "./comp/NavBar/NavBar";
 
 export const metadata: Metadata = {
-  title: "Next Test",
+  title: "MovieGenie",
   authors: [{ name: "Minh Hai Hoang" }],
-  description: "A Next.js test site",
+  description:
+    "MovieGenie is a search engine that helps you find your favourite movies, TV shows, dramas, and so much more.",
+  keywords: [
+    "movies",
+    "tv shows",
+    "dramas",
+    "search engine",
+    "moviegenie",
+    "actors",
+    "actress",
+  ],
+  creator: "Minh Hai Hoang",
+  publisher: "Minh Hai Hoang",
+  alternates: { canonical: "https://moviegenie.vercel.app" },
 };
 
 export default function RootLayout({

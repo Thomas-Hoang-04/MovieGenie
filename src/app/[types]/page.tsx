@@ -9,7 +9,7 @@ import SearchBox from "../comp/SearchBox/SearchBox";
 import { Button } from "@/components/ui/button";
 import { Loader, ProgressLoader } from "../comp/Loader/loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faForward, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
 
 const Card = dynamic(() => import("@/app/comp/Card/Card"), {
@@ -90,8 +90,13 @@ export default function Page({
           />
         )}
         {isError && <p>Something went wrong...</p>}
-        {hasNextPage && (
-          <Button onClick={() => fetchNextPage()}>Next Page</Button>
+        {(!isLoading || !isFetchingNextPage) && hasNextPage && (
+          <Button
+            className="text-lg px-6 py-6 font-semibold mb-4 bg-teal-600 dark:bg-teal-700 dark:text-slate-200 dark:hover:bg-teal-600 hover:bg-teal-500 rounded-full"
+            onClick={() => fetchNextPage()}>
+            Load More
+            <FontAwesomeIcon icon={faForward} className="ml-3" />
+          </Button>
         )}
       </article>
     </>
