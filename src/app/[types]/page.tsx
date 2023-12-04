@@ -7,7 +7,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import SearchBox from "../comp/SearchBox/SearchBox";
 import { Button } from "@/components/ui/button";
-import { Loader, ProgressLoader } from "../comp/Loader/loader";
+import { ErrorDisplay, Loader, ProgressLoader } from "../comp/Loader/loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faForward, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
@@ -87,8 +87,8 @@ export default function Page({
             </p>
           </ProgressLoader>
         )}
-        {isError && <p>Something went wrong...</p>}
-        {(!isLoading || !isFetchingNextPage) && hasNextPage && (
+        {isError && <ErrorDisplay />}
+        {!isLoading && !isFetchingNextPage && hasNextPage && (
           <Button
             className="text-lg px-6 py-6 font-semibold mb-4 bg-teal-600 dark:bg-teal-700 dark:text-slate-200 dark:hover:bg-teal-600 hover:bg-teal-500 rounded-full"
             onClick={() => fetchNextPage()}>
