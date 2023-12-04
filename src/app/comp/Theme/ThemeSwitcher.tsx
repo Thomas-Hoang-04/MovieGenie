@@ -27,7 +27,8 @@ export function ThemeSwitch({ theme, setTheme }: ThemeProps) {
       <Button
         size="sm"
         className="dark:bg-slate-200 sm:hidden bg-teal-700 py-5 px-3 hover:bg-teal-600"
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        aria-label="Change themes">
         {theme === "dark" ? (
           <FontAwesomeIcon icon={faMoon} color="#0f766e" size="lg" />
         ) : (

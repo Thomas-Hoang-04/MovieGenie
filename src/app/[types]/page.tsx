@@ -1,36 +1,20 @@
 "use client";
 
-import { Category, TypeText } from "@/lib/types";
-import Card from "../comp/Card/Card";
-import axios from "axios";
+import { Category } from "@/lib/types";
+import dynamic from "next/dynamic";
+import { getData } from "@/lib/getData";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBox from "../comp/SearchBox/SearchBox";
+import { Button } from "@/components/ui/button";
+import { Loader, ProgressLoader } from "../comp/Loader/loader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { Separator } from "@/components/ui/separator";
 
-const getData = async ({
-  queryKey,
-  pageParam,
-}: {
-  queryKey: string[];
-  pageParam: number;
-}) => {
-  const [_key, query, type] = queryKey as [string, Category, string];
-  const res = await axios.request({
-    method: "GET",
-    url: `https://api.themoviedb.org/3/search/${type}`,
-    params: {
-      query: query,
-      include_adult: false,
-      language: "en-US",
-      page: pageParam,
-    },
-    headers: {
-      Accept: "application/json",
-      Authorization: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
-    },
-  });
-  return res.data;
-};
+const Card = dynamic(() => import("@/app/comp/Card/Card"), {
+  loading: () => <Loader />,
+});
 
 export default function Page({
   params,
@@ -39,44 +23,77 @@ export default function Page({
 }): React.ReactElement {
   const [query, setQuery] = useState<string>("");
 
-  const { data, isLoading, isSuccess, isError } = useInfiniteQuery({
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    isError,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: ["search", query, params.types],
     queryFn: ({ queryKey, pageParam = 1 }) => getData({ queryKey, pageParam }),
     initialPageParam: 1,
     getNextPageParam: lastPage =>
-      lastPage.page < lastPage.total_pages && lastPage.page + 1,
+      lastPage.curr_page < lastPage.total_pages
+        ? lastPage.curr_page + 1
+        : undefined,
+
     enabled: query.length != 0,
   });
 
+  useEffect(() => {}, []);
+
   return (
-    <main>
-      <SearchBox type={TypeText(params.types)} setQuery={setQuery} />
-      {isLoading && <p>Loading...</p>}
-      {isError && <p>Something went wrong...</p>}
-      {isSuccess &&
-        data.pages.map((page, index) => {
-          return (
-            <section key={index}>
-              {page.results.map((result: any) => {
-                const title = result.title || result.name;
-                const release_time =
-                  result.release_date?.split("-")[0] ||
-                  result.first_air_date?.split("-")[0] ||
-                  "";
-                return (
-                  <Card
-                    key={result.id}
-                    id={result.id}
-                    title={title}
-                    poster_path={result.poster_path}
-                    release_date={release_time}
-                    type={params.types}
-                  />
-                );
-              })}
-            </section>
-          );
-        })}
-    </main>
+    <>
+      <SearchBox type={params.types} setQuery={setQuery} />
+      <article>
+        {isSuccess && (
+          <>
+            <Separator className="bg-teal-700 dark:bg-teal-600 rounded-full mx-auto mt-6 h-1" />
+            <h1 className="my-4 font-bold italic text-teal-800 dark:text-slate-200 text-xl">
+              {data.pages[0].no_result ? (
+                <>
+                  <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
+                  {`No result found for "${query}"`}
+                </>
+              ) : (
+                `Search results for "${query}"`
+              )}
+            </h1>
+            {data.pages.map((page, index) => {
+              return (
+                <section key={index}>
+                  {page.data.map((result: any) => {
+                    return (
+                      <Card
+                        key={result.id}
+                        {...result}
+                        type={params.types}
+                        query={query}
+                      />
+                    );
+                  })}
+                </section>
+              );
+            })}
+          </>
+        )}
+        {(isLoading || isFetchingNextPage) && (
+          <ProgressLoader
+            children={
+              <p className="font-bold text-[1.25rem] italic">
+                Loading Results...
+              </p>
+            }
+          />
+        )}
+        {isError && <p>Something went wrong...</p>}
+        {hasNextPage && (
+          <Button onClick={() => fetchNextPage()}>Next Page</Button>
+        )}
+      </article>
+    </>
   );
 }

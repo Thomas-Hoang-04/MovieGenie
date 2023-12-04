@@ -15,3 +15,6 @@ export interface ThemeProps {
   theme: string | undefined;
   setTheme: (theme: string) => void;
 }
+
+export const ImageBlurData =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM88/tjPQAIjAM5+QEKmQAAAABJRU5ErkJggg==";

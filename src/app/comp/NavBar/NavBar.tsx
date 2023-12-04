@@ -10,25 +10,35 @@ export default function NavBar(): React.ReactElement {
   return (
     <nav className="nav-bar">
       <ul>
-        <li className="group">
+        <li
+          className="group"
+          onClick={() =>
+            !pathname.includes("/movie") && sessionStorage.clear()
+          }>
           <Link href="/movie" className="link">
             Movie
           </Link>
           <span
             className={`deco${
-              pathname === "/movie" ? " active" : " "
+              pathname.includes("/movie") ? " active" : " "
             } group-hover:w-full`}></span>
         </li>
-        <li className="group">
+        <li
+          className="group"
+          onClick={() => !pathname.includes("/tv") && sessionStorage.clear()}>
           <Link href="/tv" className="link">
             TV Series
           </Link>
           <span
             className={`deco${
-              pathname === "/tv" ? " active" : " "
+              pathname.includes("/tv") ? " active" : " "
             } group-hover:w-full`}></span>
         </li>
-        <li className="group">
+        <li
+          className="group"
+          onClick={() =>
+            !pathname.includes("/person") && sessionStorage.clear()
+          }>
           <Link href="/person" className="link">
             Actor/Actress
           </Link>

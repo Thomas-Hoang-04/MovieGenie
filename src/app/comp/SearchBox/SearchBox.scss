@@ -6,7 +6,7 @@
   }
 
   .search-box {
-    @apply rounded-full pl-4 focus-visible:ring-offset-0 dark:focus-visible:ring-teal-500 focus-visible:ring-teal-700 dark:bg-slate-800 dark:placeholder:text-neutral-300 dark:placeholder:text-opacity-90 placeholder:font-medium placeholder:italic;
+    @apply rounded-full pl-4 bg-teal-300/25 placeholder:text-teal-800 focus-visible:ring-offset-0 dark:focus-visible:ring-teal-500 focus-visible:ring-teal-700 dark:bg-slate-800 dark:placeholder:text-neutral-300 dark:placeholder:text-opacity-90 placeholder:font-medium placeholder:italic;
   }
 
   .search-btn {

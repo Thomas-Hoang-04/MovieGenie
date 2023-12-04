@@ -1,0 +1,81 @@
+@tailwind components;
+
+@layer components {
+  .loader {
+    @apply flex flex-col my-8;
+  }
+
+  .loader__img {
+    @apply w-full h-[400px] rounded-none rounded-t-xl object-cover bg-teal-100/50;
+  }
+
+  .loader__content {
+    @apply flex flex-col gap-2 p-6 pt-3 rounded-none rounded-b-xl dark:shadow-none bg-teal-100/50;
+  }
+
+  .loader__title {
+    @apply h-6 bg-teal-200/50 dark:bg-slate-700;
+  }
+
+  .loader__date {
+    @apply h-4 mt-1 bg-teal-200/50 dark:bg-slate-700;
+  }
+
+  .loader__btn {
+    @apply h-8 w-1/3 mt-2 bg-teal-200/50 dark:bg-slate-700;
+  }
+
+  .progress-loader {
+    @apply flex gap-4 my-6 items-center;
+  }
+
+  .custom-loader {
+    @apply w-8 h-8;
+    --prime: #0d9488;
+    --c: linear-gradient(var(--prime) 0 0);
+    --r1: radial-gradient(farthest-side at bottom, var(--prime) 93%, #0000);
+    --r2: radial-gradient(farthest-side at top, var(--prime) 93%, #0000);
+    background: var(--c), var(--r1), var(--r2), var(--c), var(--r1), var(--r2),
+      var(--c), var(--r1), var(--r2);
+    background-repeat: no-repeat;
+    animation: db2 1s infinite alternate;
+  }
+}
+
+$base: 32px;
+$sec-1: $base / 5;
+$sec-2: $base / 10;
+$sec-3: $base / 20;
+
+@keyframes db2 {
+  0%,
+  25% {
+    background-size: $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0,
+      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
+    background-position: 0 50%, 0 calc(50% - $sec-3), 0 calc(50% + $sec-3),
+      50% 50%, 50% calc(50% - $sec-3), 50% calc(50% + $sec-3), 100% 50%,
+      100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
+  }
+  50% {
+    background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0,
+      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
+    background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
+      50% 50%, 50% calc(50% - $sec-3), 50% calc(50% + $sec-3), 100% 50%,
+      100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
+  }
+  75% {
+    background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%,
+      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
+    background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
+      50% 50%, 50% calc(0% - $sec-3), 50% calc(100% + $sec-3), 100% 50%,
+      100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
+  }
+  95%,
+  100% {
+    background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%,
+      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2;
+    background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
+      50% 50%, 50% calc(0% - $sec-3), 50% calc(100% + $sec-3), 100% 50%,
+      100% calc(0% - $sec-3), 100% calc(100% + $sec-3);
+  }
+}
