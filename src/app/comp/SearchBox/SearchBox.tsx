@@ -46,7 +46,7 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
     return () => {
       window.removeEventListener("keydown", EnterEvent);
     };
-  }, []);
+  }, [type, setQuery]);
 
   if (!mounted) return null;
 

@@ -81,13 +81,11 @@ export default function Page({
           </>
         )}
         {(isLoading || isFetchingNextPage) && (
-          <ProgressLoader
-            children={
-              <p className="font-bold text-[1.25rem] italic">
-                Loading Results...
-              </p>
-            }
-          />
+          <ProgressLoader>
+            <p className="font-bold text-[1.25rem] italic">
+              Loading Results...
+            </p>
+          </ProgressLoader>
         )}
         {isError && <p>Something went wrong...</p>}
         {(!isLoading || !isFetchingNextPage) && hasNextPage && (
