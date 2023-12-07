@@ -4,6 +4,7 @@ import "./globals.css";
 import Provider from "./provider";
 import Header from "./comp/Header/Header";
 import NavBar from "./comp/NavBar/NavBar";
+import BackToTop from "./comp/BackToTop/BackToTop";
 
 export const metadata: Metadata = {
   title: "MovieGenie",
@@ -39,6 +40,7 @@ export default function RootLayout({
           <article className="max-w-[1440px] mx-auto">
             <Header />
             <NavBar />
+            <BackToTop />
             {children}
           </article>
         </Provider>

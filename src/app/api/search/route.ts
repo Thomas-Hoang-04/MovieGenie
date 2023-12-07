@@ -34,9 +34,8 @@ export async function GET(request: NextRequest) {
         case "person":
           return {
             id: item.id,
-            title: item.name,
-            poster_path: item.profile_path,
-            release_date: item.known_for_department,
+            name: item.name,
+            profile_path: item.profile_path,
           };
       }
     });

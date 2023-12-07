@@ -7,7 +7,7 @@ export const TypeText = (type: Category): string => {
     case "tv":
       return "TV series";
     case "person":
-      return "actors/actress";
+      return "artists";
   }
 };
 

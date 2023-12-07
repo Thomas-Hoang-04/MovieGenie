@@ -40,7 +40,7 @@ export default function NavBar(): React.ReactElement {
             !pathname.includes("/person") && sessionStorage.clear()
           }>
           <Link href="/person" className="link">
-            Actor/Actress
+            People
           </Link>
           <span
             className={`deco${

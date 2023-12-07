@@ -12,9 +12,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faForward, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
 
-const Card = dynamic(() => import("@/app/comp/Card/Card"), {
-  loading: () => <Loader />,
-});
+const MotionCard = dynamic(
+  () => import("@/app/comp/Card/Card").then(mod => mod.MotionCard),
+  {
+    loading: () => <Loader />,
+  }
+);
+
+const PersonCard = dynamic(
+  () => import("@/app/comp/Card/Card").then(mod => mod.PersonCard),
+  {
+    loading: () => <Loader />,
+  }
+);
 
 export default function Page({
   params,
@@ -43,8 +53,6 @@ export default function Page({
     enabled: query.length != 0,
   });
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <SearchBox type={params.types} setQuery={setQuery} />
@@ -66,14 +74,27 @@ export default function Page({
               return (
                 <section key={index}>
                   {page.data.map((result: any) => {
-                    return (
-                      <Card
-                        key={result.id}
-                        {...result}
-                        type={params.types}
-                        query={query}
-                      />
-                    );
+                    switch (params.types) {
+                      case "movie":
+                      case "tv":
+                        return (
+                          <MotionCard
+                            key={result.id}
+                            {...result}
+                            type={params.types}
+                            query={query}
+                          />
+                        );
+                      case "person":
+                        return (
+                          <PersonCard
+                            key={result.id}
+                            {...result}
+                            type={params.types}
+                            query={query}
+                          />
+                        );
+                    }
                   })}
                 </section>
               );

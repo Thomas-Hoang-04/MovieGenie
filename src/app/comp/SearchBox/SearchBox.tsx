@@ -25,6 +25,7 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
   const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const { theme } = useTheme();
+  const [atc, setAtc] = useState<string>("one-time-code");
 
   useEffect(() => {
     setMounted(true);
@@ -48,6 +49,10 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
     };
   }, [type, setQuery]);
 
+  useEffect(() => {
+    navigator.userAgent.includes("Firefox" || "FxiOS") ? setAtc("off") : null;
+  }, []);
+
   if (!mounted) return null;
 
   return (
@@ -59,6 +64,7 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
         className="search-box"
         placeholder={`Find your favourite ${TypeText(type)}`}
         ref={inputRef}
+        autoComplete={atc}
       />
       <Button
         id="search-btn"
