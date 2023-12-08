@@ -84,8 +84,8 @@ export function PersonCard({
       <Image
         src={img_src}
         alt={name}
-        width={200}
-        height={300}
+        width={400}
+        height={600}
         placeholder={ImageBlurData}
       />
       <section className="card__content">

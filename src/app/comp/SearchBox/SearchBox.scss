@@ -2,14 +2,18 @@
 
 @layer components {
   .search {
-    @apply flex items-center gap-4;
+    @apply flex items-center gap-4 md:my-4;
   }
 
   .search-box {
-    @apply rounded-full pl-4 text-base bg-teal-300/25 placeholder:text-teal-800 focus-visible:ring-offset-0 dark:focus-visible:ring-teal-500 focus-visible:ring-teal-700 dark:bg-slate-800 dark:placeholder:text-neutral-300 dark:placeholder:text-opacity-90 placeholder:font-medium placeholder:italic;
+    @apply rounded-full px-6 text-xl py-6 laptop:text-2xl laptop:py-8 laptop:px-8 bg-teal-300/25 placeholder:text-teal-800 focus-visible:ring-offset-0 dark:focus-visible:ring-teal-500 focus-visible:ring-teal-700 dark:bg-slate-800 dark:placeholder:text-neutral-300 dark:placeholder:text-opacity-90 placeholder:font-medium placeholder:italic;
   }
 
   .search-btn {
-    @apply rounded-full w-10 h-10 dark:bg-slate-200 text-[0.75rem] bg-teal-600 hover:bg-teal-500;
+    @apply rounded-full w-12 h-12 md:w-auto md:px-5 laptop:h-16 laptop:px-6 xl:px-8 dark:bg-slate-200 text-[0.75rem] lg:text-[1rem] bg-teal-700/90 hover:bg-teal-500;
+  }
+
+  .trigger {
+    @apply hidden md:block font-semibold ml-2 text-xl laptop:text-2xl text-slate-200;
   }
 }

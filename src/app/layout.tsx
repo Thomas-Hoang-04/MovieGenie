@@ -39,7 +39,9 @@ export default function RootLayout({
         <Provider>
           <article className="max-w-[1440px] mx-auto">
             <Header />
-            <NavBar />
+            <section className="md:hidden">
+              <NavBar />
+            </section>
             <BackToTop />
             {children}
           </article>

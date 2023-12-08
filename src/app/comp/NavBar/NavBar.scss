@@ -2,13 +2,13 @@
 
 @layer components {
   .nav-bar {
-    @apply pt-3 pb-6;
+    @apply pt-3 pb-6 md:pb-3 flex items-center;
 
     ul {
-      @apply flex items-center justify-between grow font-bold text-[1.15rem];
+      @apply flex items-center justify-between md:gap-6 lg:gap-10 laptop:gap-16 xl:gap-20 grow font-bold text-[1.15rem];
 
       li {
-        @apply flex flex-col;
+        @apply flex flex-col min-[500px]:max-md:text-[3.5vw] md:text-clamp-1;
 
         .deco {
           @apply w-0 h-1 bg-teal-500 rounded-full transition-all duration-300 ease-in-out;

@@ -75,9 +75,10 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
         }}>
         <FontAwesomeIcon
           icon={faSearch}
-          size="lg"
+          size="xl"
           color={theme === "dark" ? "#0f766e" : "#e5e5e5"}
         />
+        <p className="trigger dark:text-teal-800">Search</p>
       </Button>
     </section>
   );

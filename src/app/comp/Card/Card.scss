@@ -2,12 +2,12 @@
 
 @layer components {
   .card {
-    @apply flex flex-col my-8;
+    @apply flex flex-col my-8 max-w-[425px] md:mt-6;
 
     img {
-      @apply rounded-t-xl object-cover;
+      @apply rounded-t-xl object-cover max-h-[550px] phone-l:max-h-[600px];
       width: auto;
-      height: auto;
+      aspect-ratio: 2/3;
     }
   }
 
@@ -16,7 +16,7 @@
   }
 
   .card__title {
-    @apply text-2xl mt-2 font-bold text-teal-700/90 dark:text-neutral-200;
+    @apply text-2xl mt-2 font-bold text-teal-700/90 dark:text-neutral-200 text-ellipsis whitespace-nowrap overflow-hidden;
   }
 
   .card__date {

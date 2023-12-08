@@ -1,7 +1,41 @@
-$base: 32px;
-$sec-1: $base / 5;
-$sec-2: $base / 10;
-$sec-3: $base / 20;
+@mixin ani($base) {
+  $sec-1: $base / 5;
+  $sec-2: $base / 10;
+  $sec-3: $base / 20;
+
+  @keyframes db2 {
+    0%,
+    25% {
+      background-size: $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0,
+        $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
+      background-position: 0 50%, 0 calc(50% - $sec-3), 0 calc(50% + $sec-3),
+        50% 50%, 50% calc(50% - $sec-3), 50% calc(50% + $sec-3), 100% 50%,
+        100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
+    }
+    50% {
+      background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0,
+        $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
+      background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
+        50% 50%, 50% calc(50% - $sec-3), 50% calc(50% + $sec-3), 100% 50%,
+        100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
+    }
+    75% {
+      background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%,
+        $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
+      background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
+        50% 50%, 50% calc(0% - $sec-3), 50% calc(100% + $sec-3), 100% 50%,
+        100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
+    }
+    95%,
+    100% {
+      background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%,
+        $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2;
+      background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
+        50% 50%, 50% calc(0% - $sec-3), 50% calc(100% + $sec-3), 100% 50%,
+        100% calc(0% - $sec-3), 100% calc(100% + $sec-3);
+    }
+  }
+}
 
 @tailwind components;
 
@@ -35,6 +69,7 @@ $sec-3: $base / 20;
   }
 
   .custom-loader {
+    @include ani(32px);
     @apply w-8 h-8;
     --prime: #0d9488;
     --c: linear-gradient(var(--prime) 0 0);
@@ -47,55 +82,42 @@ $sec-3: $base / 20;
   }
 
   .error {
-    @apply flex flex-col gap-2 mt-8 font-semibold;
+    @apply flex flex-col gap-2 my-8 sm:my-12 font-semibold lg:flex-row lg:items-center lg:justify-center;
+  }
+
+  .error__details {
+    @apply flex flex-col gap-2;
   }
 
   .error__title {
-    @apply text-lg font-bold text-red-500 dark:text-red-300;
+    @apply text-lg sm:text-clamp-2 font-bold text-red-500 dark:text-red-300;
   }
 
   .error__text {
-    @apply text-base italic text-red-400 dark:text-red-300;
+    @apply text-base sm:text-clamp-sub sm:mt-2 lg:mt-3 italic text-red-400 dark:text-red-300;
   }
 
   .srr__msg {
-    @apply text-teal-700 dark:text-slate-200 font-bold italic text-lg;
+    @apply text-teal-700 dark:text-slate-200 font-bold italic text-lg phone-l:text-clamp-2;
   }
 
   .divider {
-    @apply border-teal-600 dark:border-teal-500 border-[1.5px] my-2 w-full;
+    @apply border-teal-600 dark:border-teal-500 border-y-[1.5px] lg:border-y-0 my-2 phone-l:my-4 sm:w-4/5 md:w-2/3 lg:w-0 lg:border-x-[1.75px] lg:h-24 lg:mx-8;
+  }
+
+  @media screen and (min-width: 768px) {
+    .custom-loader {
+      @include ani(48px);
+      @apply w-12 h-12;
+      animation: db2 1s infinite alternate;
+    }
   }
 }
 
-@keyframes db2 {
-  0%,
-  25% {
-    background-size: $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0,
-      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
-    background-position: 0 50%, 0 calc(50% - $sec-3), 0 calc(50% + $sec-3),
-      50% 50%, 50% calc(50% - $sec-3), 50% calc(50% + $sec-3), 100% 50%,
-      100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
-  }
-  50% {
-    background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0,
-      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
-    background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
-      50% 50%, 50% calc(50% - $sec-3), 50% calc(50% + $sec-3), 100% 50%,
-      100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
-  }
-  75% {
-    background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%,
-      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 0, $sec-1 $sec-2, $sec-1 $sec-2;
-    background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
-      50% 50%, 50% calc(0% - $sec-3), 50% calc(100% + $sec-3), 100% 50%,
-      100% calc(50% - $sec-3), 100% calc(50% + $sec-3);
-  }
-  95%,
-  100% {
-    background-size: $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%,
-      $sec-1 $sec-2, $sec-1 $sec-2, $sec-1 100%, $sec-1 $sec-2, $sec-1 $sec-2;
-    background-position: 0 50%, 0 calc(0% - $sec-3), 0 calc(100% + $sec-3),
-      50% 50%, 50% calc(0% - $sec-3), 50% calc(100% + $sec-3), 100% 50%,
-      100% calc(0% - $sec-3), 100% calc(100% + $sec-3);
+@media screen and (min-width: 1024px) {
+  .custom-loader {
+    @include ani(64px);
+    @apply w-16 h-16;
+    animation: db2 1s infinite alternate;
   }
 }

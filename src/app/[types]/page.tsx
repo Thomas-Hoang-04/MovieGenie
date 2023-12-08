@@ -60,7 +60,7 @@ export default function Page({
         {isSuccess && (
           <>
             <Separator className="bg-teal-700 dark:bg-teal-600 rounded-full mx-auto mt-6 h-1" />
-            <h1 className="my-4 font-bold italic text-teal-800 dark:text-slate-200 text-xl">
+            <h1 className="my-4 font-bold italic text-teal-800 dark:text-slate-200 text-xl phone-l:text-2xl sm:text-3xl laptop:text-4xl laptop:mt-8 md:my-6">
               {data.pages[0].no_result ? (
                 <>
                   <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
@@ -70,40 +70,38 @@ export default function Page({
                 `Search results for "${query}"`
               )}
             </h1>
-            {data.pages.map((page, index) => {
-              return (
-                <section key={index}>
-                  {page.data.map((result: any) => {
-                    switch (params.types) {
-                      case "movie":
-                      case "tv":
-                        return (
-                          <MotionCard
-                            key={result.id}
-                            {...result}
-                            type={params.types}
-                            query={query}
-                          />
-                        );
-                      case "person":
-                        return (
-                          <PersonCard
-                            key={result.id}
-                            {...result}
-                            type={params.types}
-                            query={query}
-                          />
-                        );
-                    }
-                  })}
-                </section>
-              );
-            })}
+            <section className="min-[870px]:grid min-[870px]:grid-cols-2 gap-x-4 min-[1300px]:grid-cols-3">
+              {data?.pages
+                .flatMap(page => page.data)
+                .map(result => {
+                  switch (params.types) {
+                    case "movie":
+                    case "tv":
+                      return (
+                        <MotionCard
+                          key={result.id}
+                          {...result}
+                          type={params.types}
+                          query={query}
+                        />
+                      );
+                    case "person":
+                      return (
+                        <PersonCard
+                          key={result.id}
+                          {...result}
+                          type={params.types}
+                          query={query}
+                        />
+                      );
+                  }
+                })}
+            </section>
           </>
         )}
         {(isLoading || isFetchingNextPage) && (
           <ProgressLoader>
-            <p className="font-bold text-[1.25rem] italic">
+            <p className="font-bold text-xl italic md:text-2xl md:ml-2 md:my-4 laptop:text-3xl laptop:my-6">
               Loading Results...
             </p>
           </ProgressLoader>
@@ -111,7 +109,7 @@ export default function Page({
         {isError && <ErrorDisplay />}
         {!isLoading && !isFetchingNextPage && hasNextPage && (
           <Button
-            className="text-lg px-6 py-6 font-semibold mb-4 bg-teal-600 dark:bg-teal-700 dark:text-slate-200 dark:hover:bg-teal-600 hover:bg-teal-500 rounded-full"
+            className="text-lg px-6 py-6 font-semibold mb-4 bg-teal-600 dark:bg-teal-700 dark:text-slate-200 dark:hover:bg-teal-600 hover:bg-teal-500 rounded-full md:text-xl md:p-7 lg:p-8 lg:text-2xl lg:mb-8 lg:mt-4"
             onClick={() => fetchNextPage()}>
             Load More
             <FontAwesomeIcon icon={faForward} className="ml-3" />

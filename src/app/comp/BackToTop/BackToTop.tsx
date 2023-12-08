@@ -18,7 +18,7 @@ export default function BackToTop() {
   return (
     <Button
       size={"lg"}
-      className={`px-4 w-12 h-12 fixed bottom-8 right-6 bg-teal-600 dark:bg-slate-200 ${
+      className={`px-4 w-12 h-12 sm:w-auto flex sm:rounded-full sm:px-5 fixed bottom-12 right-6 bg-teal-600 dark:bg-slate-200 ${
         show ? "block" : "hidden"
       }`}
       onClick={() => {
@@ -33,6 +33,9 @@ export default function BackToTop() {
         size="xl"
         className="dark:text-teal-800"
       />
+      <p className="hidden sm:inline ml-3 text-lg font-semibold md:text-xl dark:text-teal-700">
+        Back to top
+      </p>
     </Button>
   );
 }

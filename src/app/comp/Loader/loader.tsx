@@ -33,12 +33,16 @@ export const ProgressLoader = ({
 export const ErrorDisplay = () => {
   return (
     <section className="error">
-      <h1 className="error__title">
-        <FontAwesomeIcon icon={faWarning} className="mr-2" />
-        Something went wrong
-      </h1>
-      <p className="error__text">Please try again later or refresh the page</p>
-      <hr className="divider" />
+      <article className="error__details">
+        <h1 className="error__title">
+          <FontAwesomeIcon icon={faWarning} className="mr-2" />
+          Something went wrong
+        </h1>
+        <p className="error__text">
+          Please try again later or refresh the page
+        </p>
+      </article>
+      <Separator className="divider" />
       <p className="srr__msg">We apologize for any inconvenience</p>
     </section>
   );
