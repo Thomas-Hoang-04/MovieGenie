@@ -5,6 +5,7 @@ import Provider from "./provider";
 import Header from "./comp/Header/Header";
 import NavBar from "./comp/NavBar/NavBar";
 import BackToTop from "./comp/BackToTop/BackToTop";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "MovieGenie",
@@ -46,6 +47,7 @@ export default function RootLayout({
             {children}
           </article>
         </Provider>
+        <SpeedInsights />
       </body>
     </html>
   );
