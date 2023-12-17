@@ -8,7 +8,7 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 export default function BackToTop() {
   const [show, setShow] = useState<boolean>(false);
   const handleScroll = useCallback(() => {
-    window.scrollY > 20 ? setShow(true) : setShow(false);
+    window.scrollY > 100 ? setShow(true) : setShow(false);
   }, []);
 
   if (typeof window !== "undefined") {

@@ -2,12 +2,14 @@
 
 import { Input } from "@/components/ui/input";
 import { Category, TypeText } from "@/lib/types";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import "./SearchBox.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import path from "path";
 
 interface SearchProps {
   type: Category;
@@ -26,6 +28,19 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { theme } = useTheme();
   const [atc, setAtc] = useState<string>("one-time-code");
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const createQuery = useCallback(
+    (value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set("query", value);
+
+      return params.toString();
+    },
+    [setQuery]
+  );
 
   useEffect(() => {
     setMounted(true);
@@ -72,6 +87,9 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
         aria-label="Search"
         onClick={() => {
           setQuery(inputRef.current?.value as string);
+          router.push(
+            pathname + "?" + createQuery(inputRef.current?.value as string)
+          );
         }}>
         <FontAwesomeIcon
           icon={faSearch}
