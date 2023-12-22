@@ -17,6 +17,7 @@ export function ThemeSwitch({ theme, setTheme }: ThemeProps) {
           className="data-[state=unchecked]:bg-teal-700 dark:data-[state=checked]:bg-neutral-200"
           checked={theme === "dark"}
           onCheckedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+          aria-label="Change themes"
         />
         <FontAwesomeIcon
           icon={faMoon}
