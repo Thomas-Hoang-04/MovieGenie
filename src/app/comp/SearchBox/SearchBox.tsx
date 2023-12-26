@@ -56,6 +56,7 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
       setQuery(query_cache);
       setTimeout(() => {
         inputRef.current!.value = query_cache;
+        router.push(pathname + "?" + createQuery(query_cache as string));
       }, 100);
     }
 
