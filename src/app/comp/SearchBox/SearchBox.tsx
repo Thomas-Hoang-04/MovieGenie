@@ -56,13 +56,14 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
       setQuery(query_cache);
       setTimeout(() => {
         inputRef.current!.value = query_cache;
+        router.push(pathname + "?" + createQuery(query_cache as string));
       }, 10);
     }
 
     return () => {
       window.removeEventListener("keydown", EnterEvent);
     };
-  }, [type, setQuery]);
+  }, [type, setQuery, createQuery, pathname, router]);
 
   useEffect(() => {
     navigator.userAgent.includes("Firefox" || "FxiOS") ? setAtc("off") : null;
