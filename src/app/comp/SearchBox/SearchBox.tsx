@@ -39,7 +39,7 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
 
       return params.toString();
     },
-    [setQuery]
+    [searchParams]
   );
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
       setQuery(query_cache);
       setTimeout(() => {
         inputRef.current!.value = query_cache;
-      }, 100);
+      }, 10);
     }
 
     return () => {
