@@ -34,7 +34,7 @@ export function MotionCard({
 }: MotionCardProps): React.ReactElement {
   const img_src =
     poster_path?.length > 0
-      ? `https://image.tmdb.org/t/p/original${poster_path}`
+      ? `https://image.tmdb.org/t/p/w200${poster_path}`
       : motionPldImg;
 
   const date = release_date?.length > 0 ? release_date.split("-")[0] : "";

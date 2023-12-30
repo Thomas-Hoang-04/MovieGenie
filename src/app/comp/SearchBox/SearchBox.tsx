@@ -97,7 +97,7 @@ const SearchBox = ({ type, setQuery }: SearchProps) => {
           size="xl"
           color={theme === "dark" ? "#0f766e" : "#e5e5e5"}
         />
-        <p className="trigger dark:text-teal-800">Search</p>
+        <p className="trigger">Search</p>
       </Button>
     </section>
   );

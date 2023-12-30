@@ -4,7 +4,7 @@ import { Category } from "@/lib/types";
 import dynamic from "next/dynamic";
 import { getData } from "@/lib/getData";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchBox from "../comp/SearchBox/SearchBox";
 import { Button } from "@/components/ui/button";
 import { ErrorDisplay, Loader, ProgressLoader } from "../comp/Loader/loader";
@@ -70,7 +70,7 @@ export default function Page({
                 `Search results for "${query}"`
               )}
             </h1>
-            <section className="min-[870px]:grid min-[870px]:grid-cols-2 gap-x-4 min-[1300px]:grid-cols-3">
+            <section className="sm:grid sm:grid-cols-2 gap-x-4 min-[800px]:grid-cols-3 min-[1200px]:grid-cols-4">
               {data?.pages
                 .flatMap(page => page.data)
                 .map(result => {
