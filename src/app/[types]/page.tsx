@@ -4,13 +4,14 @@ import { Category } from "@/lib/types";
 import dynamic from "next/dynamic";
 import { getData } from "@/lib/getData";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useLayoutEffect, useState, useRef } from "react";
 import SearchBox from "../comp/SearchBox/SearchBox";
 import { Button } from "@/components/ui/button";
 import { ErrorDisplay, Loader, ProgressLoader } from "../comp/Loader/loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faForward, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const MotionCard = dynamic(
   () => import("@/app/comp/Card/Card").then(mod => mod.MotionCard),
@@ -32,6 +33,9 @@ export default function Page({
   params: { types: Category };
 }): React.ReactElement {
   const [query, setQuery] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const {
     data,
@@ -53,9 +57,30 @@ export default function Page({
     enabled: query.length != 0,
   });
 
+  useLayoutEffect(() => {
+    const type_cache = sessionStorage.getItem("type");
+    const query_cache = sessionStorage.getItem("query");
+
+    if (type_cache === params.types && query_cache) {
+      sessionStorage.removeItem("type");
+      sessionStorage.removeItem("query");
+      setQuery(query_cache);
+      setTimeout(() => {
+        inputRef.current!.value = query_cache;
+        router.push("/" + params.types + "?q=" + query_cache);
+      }, 10);
+    } else if (searchParams.get("q")) {
+      setQuery(searchParams.get("q") as string);
+      setTimeout(() => {
+        inputRef.current!.value = searchParams.get("q") as string;
+        router.push("/" + params.types + "?q=" + searchParams.get("q"));
+      }, 10);
+    }
+  }, [params.types, setQuery, router]);
+
   return (
     <>
-      <SearchBox type={params.types} setQuery={setQuery} />
+      <SearchBox type={params.types} setQuery={setQuery} ref={inputRef} />
       <article>
         {isSuccess && (
           <>

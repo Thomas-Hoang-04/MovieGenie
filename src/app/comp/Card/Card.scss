@@ -24,6 +24,6 @@
   }
 
   .card__btn {
-    @apply dark:bg-slate-200 mt-2 mb-1 flex gap-2 dark:text-teal-800 font-semibold text-base bg-teal-600 hover:bg-teal-500;
+    @apply dark:bg-slate-200 mt-2 mb-1 flex gap-2 dark:text-teal-800 font-semibold text-base bg-teal-600 lg:hover:bg-teal-500;
   }
 }

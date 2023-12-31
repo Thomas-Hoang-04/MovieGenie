@@ -10,7 +10,7 @@
   }
 
   .search-btn {
-    @apply rounded-full w-12 h-12 md:w-auto md:px-5 laptop:h-16 laptop:px-6 xl:px-8 dark:bg-slate-200 text-[0.75rem] lg:text-[1rem] bg-teal-700/90 hover:bg-teal-500;
+    @apply rounded-full w-12 h-12 md:w-auto md:px-5 laptop:h-16 laptop:px-6 xl:px-8 dark:bg-slate-200 text-[0.75rem] lg:text-[1rem] bg-teal-700/90 lg:hover:bg-teal-500;
   }
 
   .trigger {

@@ -18,7 +18,25 @@ async function getData(types: Category, id: string) {
       Authorization: `${process.env.AUTH_KEY}`,
     },
   });
-  return res.data;
+  switch (types) {
+    case "movie":
+      return {
+        title: res.data.title,
+        backdrop_path: res.data.backdrop_path,
+        release_date: res.data.release_date,
+        poster_path: res.data.poster_path,
+        overview: res.data.overview,
+        genres: res.data.genres,
+        tagline: res.data.tagline,
+        runtime: res.data.runtime,
+      };
+    case "tv":
+      return res.data;
+    case "person":
+      return res.data;
+    default:
+      return res.data;
+  }
 }
 
 const imgSrc = (path: string) => {
@@ -40,14 +58,15 @@ export default async function Page({
 
   return (
     <>
-      <Link href={`/${params.types}`}>
-        <Button className="flex items-center dark:text-teal-700 font-semibold text-base rounded-full">
-          <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-          Go Back
+      <Link href={`/${params.types}`} className="relative top-8 z-10 w-max">
+        <Button className="flex items-center gap-2 w-10 md:w-auto dark:text-teal-700 font-semibold text-base rounded-full dark:bg-slate-200">
+          <FontAwesomeIcon icon={faArrowLeft} />
+
+          <p className="hidden md:inline">Back</p>
         </Button>
       </Link>
-      <Separator className="bg-teal-700 dark:bg-teal-600 rounded-full mt-6 h-1 w-screen -mx-6" />
-      <article className="flex justify-center -mx-6 mb-4">
+      <Separator className="bg-teal-700 dark:bg-teal-600 rounded-full -mt-6 h-1 w-screen xl:w-full max-w-[1440px] max-xl:-mx-6" />
+      <article className="flex justify-center max-xl:-mx-6 mb-4">
         <Image
           src={imgSrc(data.backdrop_path)}
           alt={data.title}
