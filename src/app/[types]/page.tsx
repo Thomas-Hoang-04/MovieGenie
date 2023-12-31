@@ -76,7 +76,7 @@ export default function Page({
         router.push("/" + params.types + "?q=" + searchParams.get("q"));
       }, 10);
     }
-  }, [params.types, setQuery, router]);
+  }, [params.types, setQuery, router, searchParams]);
 
   return (
     <>
