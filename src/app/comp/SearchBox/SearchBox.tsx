@@ -75,4 +75,6 @@ const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
   }
 );
 
+SearchBox.displayName = "SearchBox"
+
 export default SearchBox;
