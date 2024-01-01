@@ -18,3 +18,20 @@ export interface ThemeProps {
 
 export const ImageBlurData =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM88/tjPQAIjAM5+QEKmQAAAABJRU5ErkJggg==";
+
+export interface MotionCardProps {
+  id: number;
+  title: string;
+  poster_path: string;
+  release_date: string;
+  type: Category;
+  query: string;
+}
+
+export interface PersonCardProps {
+  id: number;
+  name: string;
+  profile_path: string;
+  type: "person";
+  query: string;
+}

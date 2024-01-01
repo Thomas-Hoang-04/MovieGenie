@@ -2,7 +2,7 @@
 
 import { Category } from "@/lib/types";
 import dynamic from "next/dynamic";
-import { getData } from "@/lib/getData";
+import { getSearchData } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useLayoutEffect, useState, useRef } from "react";
 import SearchBox from "../comp/SearchBox/SearchBox";
@@ -11,7 +11,7 @@ import { ErrorDisplay, Loader, ProgressLoader } from "../comp/Loader/loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faForward, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const MotionCard = dynamic(
   () => import("@/app/comp/Card/Card").then(mod => mod.MotionCard),
@@ -47,7 +47,8 @@ export default function Page({
     isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ["search", query, params.types],
-    queryFn: ({ queryKey, pageParam = 1 }) => getData({ queryKey, pageParam }),
+    queryFn: ({ queryKey, pageParam = 1 }) =>
+      getSearchData({ queryKey, pageParam }),
     initialPageParam: 1,
     getNextPageParam: lastPage =>
       lastPage.curr_page < lastPage.total_pages
