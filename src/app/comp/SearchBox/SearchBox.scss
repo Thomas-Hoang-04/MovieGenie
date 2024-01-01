@@ -10,10 +10,10 @@
   }
 
   .search-btn {
-    @apply rounded-full w-12 h-12 md:w-auto md:px-5 laptop:h-16 laptop:px-6 xl:px-8 dark:bg-slate-200 text-[0.75rem] lg:text-[1rem] bg-teal-700/90 lg:hover:bg-teal-500;
+    @apply rounded-full w-12 h-12 md:w-auto md:px-5 laptop:h-16 laptop:px-6 xl:px-8 dark:bg-slate-200 text-[0.75rem] lg:text-[1rem] bg-teal-700/90 lg:hover:bg-teal-600 text-slate-200 dark:text-teal-700 lg:dark:hover:text-slate-200;
   }
 
   .trigger {
-    @apply hidden md:block font-semibold ml-2 text-xl laptop:text-2xl text-slate-200 dark:text-teal-700;
+    @apply hidden md:block font-semibold ml-2 text-xl laptop:text-2xl;
   }
 }

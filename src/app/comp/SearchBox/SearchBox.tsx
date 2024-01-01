@@ -8,7 +8,6 @@ import "./SearchBox.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
 
 interface SearchProps {
   type: Category;
@@ -24,13 +23,10 @@ const EnterEvent = (e: KeyboardEvent) => {
 
 const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
   ({ type, setQuery }, ref) => {
-    const [mounted, setMounted] = useState<boolean>(false);
-    const { theme } = useTheme();
     const [atc, setAtc] = useState<string>("one-time-code");
     const router = useRouter();
 
     useEffect(() => {
-      setMounted(true);
       window.addEventListener("keydown", EnterEvent);
 
       navigator.userAgent.includes("Firefox" || "FxiOS") ? setAtc("off") : null;
@@ -39,8 +35,6 @@ const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
         window.removeEventListener("keydown", EnterEvent);
       };
     }, []);
-
-    if (!mounted) return null;
 
     return (
       <section className="search">
@@ -63,11 +57,7 @@ const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
               router.push("/" + type + "?q=" + (ref.current?.value as string));
             }
           }}>
-          <FontAwesomeIcon
-            icon={faSearch}
-            size="xl"
-            color={theme === "dark" ? "#0f766e" : "#e5e5e5"}
-          />
+          <FontAwesomeIcon icon={faSearch} size="xl" />
           <p className="trigger">Search</p>
         </Button>
       </section>
@@ -75,6 +65,6 @@ const SearchBox = forwardRef<HTMLInputElement, SearchProps>(
   }
 );
 
-SearchBox.displayName = "SearchBox"
+SearchBox.displayName = "SearchBox";
 
 export default SearchBox;
