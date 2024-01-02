@@ -28,7 +28,7 @@ export default async function Page({
           <p className="hidden md:inline">Back</p>
         </Button>
       </Link>
-      <Separator className="seperator" />
+      <Separator className="seperator-id" />
       <article className="flex justify-center max-xl:-mx-6 mb-4">
         <Image
           src={imgSrc(main.backdrop_path, motionBackDrop)}
