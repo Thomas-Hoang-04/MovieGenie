@@ -29,17 +29,18 @@ export function MotionCard({
       <section className="card__content">
         <h1 className="card__title">{title}</h1>
         <p className="card__date">{releaseDate(release_date)}</p>
-        <Link href={`/${type}/${id}`}>
-          <Button
-            className="card__btn"
-            onClick={() => {
-              sessionStorage.setItem("type", type);
-              sessionStorage.setItem("query", query as string);
-            }}>
+        <Button
+          className="card__btn"
+          onClick={() => {
+            sessionStorage.setItem("type", type);
+            sessionStorage.setItem("query", query as string);
+          }}
+          asChild>
+          <Link href={`/${type}/${id}`}>
             More info
             <FontAwesomeIcon icon={faArrowRight} />
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </section>
     </article>
   );
@@ -63,17 +64,18 @@ export function PersonCard({
       />
       <section className="card__content">
         <h1 className="card__title">{name}</h1>
-        <Link href={`/${type}/${id}`}>
-          <Button
-            className="card__btn"
-            onClick={() => {
-              sessionStorage.setItem("type", type);
-              sessionStorage.setItem("query", query as string);
-            }}>
+        <Button
+          className="card__btn"
+          onClick={() => {
+            sessionStorage.setItem("type", type);
+            sessionStorage.setItem("query", query as string);
+          }}
+          asChild>
+          <Link href={`/${type}/${id}`}>
             More info
             <FontAwesomeIcon icon={faArrowRight} />
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </section>
     </article>
   );

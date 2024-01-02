@@ -21,13 +21,12 @@ export default async function Page({
 
   return (
     <>
-      <Link href={`/${params.types}`} className="relative top-8 z-10 w-max">
-        <Button className="back">
+      <Button className="back" asChild>
+        <Link href={`/${params.types}`} className="relative top-8 z-10 w-max">
           <FontAwesomeIcon icon={faArrowLeft} />
-
           <p className="hidden md:inline">Back</p>
-        </Button>
-      </Link>
+        </Link>
+      </Button>
       <Separator className="seperator-id" />
       <article className="flex justify-center max-xl:-mx-6 mb-4">
         <Image

@@ -2,7 +2,7 @@
 
 @layer components {
   .back {
-    @apply flex items-center gap-2 w-10 md:w-auto dark:text-teal-700 font-semibold text-base rounded-full dark:bg-slate-200;
+    @apply flex items-center gap-2 w-10 md:w-max dark:text-teal-700 font-semibold text-base rounded-full dark:bg-slate-200;
   }
 
   .info {
