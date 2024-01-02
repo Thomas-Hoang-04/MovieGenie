@@ -41,7 +41,7 @@
 
 @layer components {
   .loader {
-    @apply flex flex-col my-8 max-w-[300px];
+    @apply flex flex-col my-8 max-w-[300px] w-full;
   }
 
   .loader__img {

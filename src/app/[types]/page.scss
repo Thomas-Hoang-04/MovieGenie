@@ -1,0 +1,23 @@
+@tailwind components;
+
+@layer components {
+  .seperator {
+    @apply bg-teal-700 dark:bg-teal-600 rounded-full mx-auto mt-6 h-1;
+  }
+
+  .result-title {
+    @apply my-4 font-bold italic text-teal-800 dark:text-slate-200 text-xl phone-l:text-2xl sm:text-3xl laptop:text-4xl laptop:mt-8 md:my-6;
+  }
+
+  .layout {
+    @apply sm:grid sm:grid-cols-2 gap-x-4 justify-center min-[800px]:grid-cols-3 min-[1200px]:grid-cols-4;
+  }
+
+  .data-loader {
+    @apply font-bold text-xl italic md:text-2xl md:ml-2 md:my-4 laptop:text-3xl laptop:my-6;
+  }
+
+  .load-more {
+    @apply text-lg px-6 py-6 font-semibold mb-4 bg-teal-600 dark:bg-teal-700 dark:text-slate-200 dark:hover:bg-teal-600 hover:bg-teal-500 rounded-full md:text-xl md:p-7 lg:p-8 lg:text-2xl lg:mb-8 lg:mt-4;
+  }
+}

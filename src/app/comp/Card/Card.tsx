@@ -22,8 +22,8 @@ export function MotionCard({
       <Image
         src={imgSrc(poster_path, motionPldImg)}
         alt={title}
-        width={200}
-        height={300}
+        width={300}
+        height={450}
         placeholder={ImageBlurData}
       />
       <section className="card__content">

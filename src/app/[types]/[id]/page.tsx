@@ -1,9 +1,11 @@
 import { Category } from "@/lib/types";
 import Link from "next/link";
+import "./page.scss";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import motionBackDrop from "@/app/assets/images/motion-backdrop.jpg";
+import motionPldImg from "@/app/assets/images/motion-pld-img.png";
 import Image from "next/image";
 import { ImageBlurData } from "@/lib/types";
 import { Separator } from "@/components/ui/separator";
@@ -20,13 +22,13 @@ export default async function Page({
   return (
     <>
       <Link href={`/${params.types}`} className="relative top-8 z-10 w-max">
-        <Button className="flex items-center gap-2 w-10 md:w-auto dark:text-teal-700 font-semibold text-base rounded-full dark:bg-slate-200">
+        <Button className="back">
           <FontAwesomeIcon icon={faArrowLeft} />
 
           <p className="hidden md:inline">Back</p>
         </Button>
       </Link>
-      <Separator className="bg-teal-700 dark:bg-teal-600 rounded-full -mt-6 h-1 w-screen xl:w-full max-w-[1440px] max-xl:-mx-6" />
+      <Separator className="seperator" />
       <article className="flex justify-center max-xl:-mx-6 mb-4">
         <Image
           src={imgSrc(main.backdrop_path, motionBackDrop)}
@@ -37,9 +39,22 @@ export default async function Page({
           className="opacity-65 relative"
         />
       </article>
-      <article className="relative -top-[4.25rem] py-4 bg-teal-700 bg-opacity-85 px-10 rounded-xl">
-        <h1 className="text-2xl font-bold italic">{main.title}</h1>
-        <p>{releaseDate(main.release_date)}</p>
+      <article className="info">
+        <Image
+          src={imgSrc(main.poster_path, motionPldImg)}
+          alt={main.title}
+          width={200}
+          height={300}
+          placeholder={ImageBlurData}
+          className="rounded-lg hidden lg:block"
+        />
+        <section className="content">
+          <h1 className="text-2xl font-bold italic">{main.title}</h1>
+          <p className="mt-1 text-lg font-medium">
+            {releaseDate(main.release_date)}
+          </p>
+          <h2 className="text-base font-normal mt-3">{main.overview}</h2>
+        </section>
       </article>
     </>
   );

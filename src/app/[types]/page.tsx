@@ -2,6 +2,7 @@
 
 import { Category } from "@/lib/types";
 import dynamic from "next/dynamic";
+import "./page.scss";
 import { getSearchData } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useLayoutEffect, useState, useRef } from "react";
@@ -85,8 +86,8 @@ export default function Page({
       <article>
         {isSuccess && (
           <>
-            <Separator className="bg-teal-700 dark:bg-teal-600 rounded-full mx-auto mt-6 h-1" />
-            <h1 className="my-4 font-bold italic text-teal-800 dark:text-slate-200 text-xl phone-l:text-2xl sm:text-3xl laptop:text-4xl laptop:mt-8 md:my-6">
+            <Separator className="seperator" />
+            <h1 className="result-title">
               {data.pages[0].no_result ? (
                 <>
                   <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
@@ -96,7 +97,7 @@ export default function Page({
                 `Search results for "${query}"`
               )}
             </h1>
-            <section className="sm:grid sm:grid-cols-2 gap-x-4 min-[800px]:grid-cols-3 min-[1200px]:grid-cols-4">
+            <section className="layout">
               {data?.pages
                 .flatMap(page => page.data)
                 .map(result => {
@@ -127,16 +128,12 @@ export default function Page({
         )}
         {(isLoading || isFetchingNextPage) && (
           <ProgressLoader>
-            <p className="font-bold text-xl italic md:text-2xl md:ml-2 md:my-4 laptop:text-3xl laptop:my-6">
-              Loading Results...
-            </p>
+            <p className="data-loader">Loading Results...</p>
           </ProgressLoader>
         )}
         {isError && <ErrorDisplay />}
         {!isLoading && !isFetchingNextPage && hasNextPage && (
-          <Button
-            className="text-lg px-6 py-6 font-semibold mb-4 bg-teal-600 dark:bg-teal-700 dark:text-slate-200 dark:hover:bg-teal-600 hover:bg-teal-500 rounded-full md:text-xl md:p-7 lg:p-8 lg:text-2xl lg:mb-8 lg:mt-4"
-            onClick={() => fetchNextPage()}>
+          <Button className="load-more" onClick={() => fetchNextPage()}>
             Load More
             <FontAwesomeIcon icon={faForward} className="ml-3" />
           </Button>
