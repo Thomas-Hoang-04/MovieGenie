@@ -6,7 +6,7 @@
   }
 
   .info {
-    @apply relative -top-[4.25rem] py-4 bg-neutral-50 shadow-lg text-teal-700 dark:text-slate-200 dark:bg-teal-700 dark:bg-opacity-85 px-6 flex justify-center rounded-xl w-[95%] lg:pt-6 mx-auto lg:grid lg:grid-cols-[max-content_auto] gap-x-10;
+    @apply relative -top-[4.25rem] py-4 bg-neutral-50 shadow-lg text-teal-700 dark:text-slate-200 dark:bg-teal-700 dark:bg-opacity-85 px-6 flex justify-center rounded-xl w-[95%] lg:pt-6 mx-auto lg:gap-10;
   }
 
   .seperator-id {
@@ -14,7 +14,7 @@
   }
 
   .content {
-    @apply w-full;
+    @apply w-full grow;
   }
 
   .badge {
