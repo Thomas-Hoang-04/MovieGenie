@@ -1,4 +1,4 @@
-import { Category } from "@/lib/types";
+import { Category, Details } from "@/lib/types";
 import Link from "next/link";
 import "./page.scss";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import Image from "next/image";
 import { ImageBlurData } from "@/lib/types";
 import { Separator } from "@/components/ui/separator";
 import { extractData, getPageData, imgSrc, releaseDate } from "@/lib/utils";
+import PageContent from "@/app/comp/PageContent/PageContent";
+import { Badge } from "@/components/ui/badge";
 
 export default async function Page({
   params,
@@ -35,7 +37,7 @@ export default async function Page({
           width={1440}
           height={900}
           placeholder={ImageBlurData}
-          className="opacity-65 relative"
+          className="dark:opacity-85 relative"
         />
       </article>
       <article className="info">
@@ -49,10 +51,17 @@ export default async function Page({
         />
         <section className="content">
           <h1 className="text-2xl font-bold italic">{main.title}</h1>
-          <p className="mt-1 text-lg font-medium">
+          <p className="mt-1 text-lg font-medium italic">
             {releaseDate(main.release_date)}
           </p>
-          <h2 className="text-base font-normal mt-3">{main.overview}</h2>
+          <section className="flex gap-2 mt-3 mb-1">
+            {main.genres.map((genre: Details) => (
+              <Badge key={genre.id} className="badge">
+                {genre.name}
+              </Badge>
+            ))}
+          </section>
+          <PageContent title="Overview" content={main.overview} />
         </section>
       </article>
     </>

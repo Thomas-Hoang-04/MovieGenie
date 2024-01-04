@@ -1,8 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import axios from "axios";
-import { Category } from "./types";
+import { Category, Details } from "./types";
 import { StaticImageData } from "next/image";
+import org_countries from "./countries.json";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -88,3 +89,29 @@ export const imgSrc = (path: string, pldImg: StaticImageData) => {
 export const releaseDate = (date: string) => {
   return date?.length > 0 ? date.split("-")[0] : "";
 };
+
+export const countries = org_countries.map(country => {
+  if (country.name.includes(",")) {
+    switch (country.code) {
+      case "KR":
+        return {
+          name: `South ${country.name.slice(0, country.name.indexOf(","))}`,
+          code: country.code,
+        };
+      case "KP":
+        return {
+          name: `North ${country.name.slice(0, country.name.indexOf(","))}`,
+          code: country.code,
+        };
+      default:
+        return {
+          name: `${country.name.slice(0, country.name.indexOf(","))}`,
+          code: country.code,
+        };
+    }
+  } else {
+    if (country.code === "RU") {
+      return { name: "Russia", code: country.code };
+    } else return country;
+  }
+});

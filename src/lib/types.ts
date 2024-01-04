@@ -35,3 +35,8 @@ export interface PersonCardProps {
   type: "person";
   query: string;
 }
+
+export interface Details {
+  id: number;
+  name: string;
+}

@@ -12,7 +12,7 @@
   }
 
   .card__content {
-    @apply flex flex-col gap-2 p-6 pt-3 rounded-b-xl shadow-lg dark:shadow-none bg-white dark:bg-teal-800;
+    @apply flex flex-col gap-2 p-6 pt-3 rounded-b-xl shadow-lg dark:shadow-none bg-neutral-50 dark:bg-teal-800;
   }
 
   .card__title {
