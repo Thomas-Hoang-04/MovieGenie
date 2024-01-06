@@ -4,11 +4,12 @@ import { useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { cn } from "@/lib/utils";
 
 export default function BackToTop() {
   const [show, setShow] = useState<boolean>(false);
   const handleScroll = useCallback(() => {
-    window.scrollY > 100 ? setShow(true) : setShow(false);
+    window.scrollY > 500 ? setShow(true) : setShow(false);
   }, []);
 
   if (typeof window !== "undefined") {
@@ -16,26 +17,23 @@ export default function BackToTop() {
   }
 
   return (
-    <Button
-      size={"lg"}
-      className={`px-4 w-12 h-12 min-[500px]:w-auto flex min-[500px]:rounded-full min-[500px]:px-5 fixed bottom-12 right-6 bg-teal-600 dark:bg-slate-200 ${
-        show ? "block" : "hidden"
-      }`}
-      onClick={() => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "smooth",
-        });
-      }}>
-      <FontAwesomeIcon
-        icon={faArrowUp}
-        size="xl"
-        className="dark:text-teal-800"
-      />
-      <p className="hidden min-[500px]:inline ml-3 text-lg font-semibold md:text-xl dark:text-teal-700">
-        Back to top
-      </p>
-    </Button>
+    <div className="fixed w-full -mx-6 pt-4">
+      <Button
+        className={cn(
+          "flex gap-2 justify-center rounded-full text-base mx-auto px-5 bg-teal-600 dark:bg-neutral-200 transition-all duration-300 hover:bg-teal-800 dark:hover:bg-teal-700 dark:hover:text-neutral-200 dark:text-teal-700",
+          show && "tranlate-y-0 opacity-100",
+          !show && "-translate-y-20 opacity-100"
+        )}
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+        }}>
+        <FontAwesomeIcon icon={faArrowUp} />
+        <p className="font-semibold">Back to top</p>
+      </Button>
+    </div>
   );
 }
