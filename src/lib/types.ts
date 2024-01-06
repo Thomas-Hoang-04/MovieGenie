@@ -36,7 +36,39 @@ export interface PersonCardProps {
   query: string;
 }
 
-export interface Details {
+export interface GeneralDetails {
   id: number;
   name: string;
 }
+
+interface GeneralMotionDetails {
+  title: string;
+  backdrop_path: string;
+  release_date: string;
+  poster_path: string;
+  overview: string;
+  genres: GeneralDetails[];
+  tagline: string;
+  status: string;
+}
+
+export interface MovieDetails extends GeneralMotionDetails {
+  runtime: number;
+}
+
+export interface TVDetails extends GeneralMotionDetails {}
+
+export interface PersonDetails {
+  name: string;
+  profile_path: string;
+  birthday: string;
+  deathday: string;
+  place_of_birth: string;
+  biography: string;
+  known_for_department: string;
+  also_known_as: string[];
+}
+
+export type Details = MovieDetails | TVDetails | PersonDetails;
+
+export type MotionDetails = Exclude<Details, PersonDetails>;

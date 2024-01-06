@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import axios from "axios";
-import { Category, Details } from "./types";
+import { Category, Details, MotionDetails, MovieDetails } from "./types";
 import { StaticImageData } from "next/image";
 import org_countries from "./countries.json";
 
@@ -58,7 +58,7 @@ export const getPageData = async (type: Category, id: string) => {
   return { metadata: { ...res.data }, credit: { ...credit } };
 };
 
-export const extractData = (data: any, type: Category) => {
+export const extractData = (data: any, type: Category): Details => {
   switch (type) {
     case "movie":
       return {
@@ -70,9 +70,19 @@ export const extractData = (data: any, type: Category) => {
         genres: data.genres,
         tagline: data.tagline,
         runtime: data.runtime,
+        status: data.status,
       };
     case "tv":
-      return data;
+      return {
+        title: data.name,
+        backdrop_path: data.backdrop_path,
+        release_date: data.first_air_date,
+        poster_path: data.poster_path,
+        overview: data.overview,
+        genres: data.genres,
+        tagline: data.tagline,
+        status: data.status,
+      };
     case "person":
       return data;
     default:
@@ -88,6 +98,18 @@ export const imgSrc = (path: string, pldImg: StaticImageData) => {
 
 export const releaseDate = (date: string) => {
   return date?.length > 0 ? date.split("-")[0] : "";
+};
+
+export const runtime = (time: number) => {
+  return time && time > 0
+    ? time < 60
+      ? `${time % 60} ${time === 1 ? "minute" : "minutes"}`
+      : time % 60 === 0
+      ? `${time / 60} ${time / 60 === 1 ? "hour" : "hours"}`
+      : `${Math.floor(time / 60)} hours ${time % 60} ${
+          time % 60 === 1 ? "minute" : "minutes"
+        }`
+    : undefined;
 };
 
 export const countries = org_countries.map(country => {
@@ -115,3 +137,40 @@ export const countries = org_countries.map(country => {
     } else return country;
   }
 });
+
+export const motionCheck = (data: Details): data is MotionDetails => {
+  return (data as MotionDetails).poster_path !== undefined;
+};
+
+export const movieCheck = (data: MotionDetails): data is MovieDetails => {
+  return (data as MovieDetails).runtime !== undefined;
+};
+
+export const statusVariant = (status: string) => {
+  switch (status) {
+    case "Released":
+    case "Returning Series":
+      return "released";
+    case "Planned":
+    case "Ended":
+      return "rumored";
+    case "In Production":
+    case "Post Production":
+      return "upcoming";
+    case "Canceled":
+      return "canceled";
+    default:
+      return "default";
+  }
+};
+
+export const TVStatusDisplay = (status: string) => {
+  switch (status) {
+    case "Returning Series":
+      return "Ongoing";
+    case "In Production":
+      return "Upcoming";
+    default:
+      return status;
+  }
+};
