@@ -39,12 +39,12 @@ export default function RootLayout({
       suppressHydrationWarning>
       <body className="dark:bg-dark bg-neutral-200 bg-opacity-[0.5]">
         <Provider>
+          <BackToTop />
           <article className="max-w-[1440px] mx-auto">
             <Header />
             <section className="md:hidden">
               <NavBar />
             </section>
-            <BackToTop />
             {children}
           </article>
         </Provider>
