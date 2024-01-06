@@ -20,7 +20,8 @@ export default function BackToTop() {
     <div className="fixed w-full -mx-6 pt-4">
       <Button
         className={cn(
-          "flex gap-2 justify-center rounded-full text-base mx-auto px-5 bg-teal-600 dark:bg-neutral-200 transition-all duration-300 md:hover:bg-teal-800 md:dark:hover:bg-teal-700 md:dark:hover:text-neutral-200 dark:text-teal-700",
+          "flex gap-2 justify-center rounded-full text-base mx-auto px-5 bg-teal-600 dark:bg-neutral-200 transition-all duration-300
+hover:bg-teal-600 dark:hover:bg-neutral-200 md:hover:bg-teal-700 md:dark:hover:bg-teal-700 md:dark:hover:text-neutral-200 dark:text-teal-700",
           show && "tranlate-y-0 opacity-100",
           !show && "-translate-y-20 opacity-100"
         )}
