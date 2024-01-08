@@ -50,6 +50,7 @@ interface GeneralMotionDetails {
   genres: GeneralDetails[];
   tagline: string;
   status: string;
+  production_companies: GeneralDetails[];
 }
 
 export interface MovieDetails extends GeneralMotionDetails {
@@ -67,6 +68,21 @@ export interface PersonDetails {
   biography: string;
   known_for_department: string;
   also_known_as: string[];
+}
+
+export interface CreditDetails {
+  cast: {
+    id: number;
+    name: string;
+    character: string;
+    profile_path: string;
+  }[];
+  crew: {
+    id: number;
+    name: string;
+    job: string;
+    profile_path: string;
+  }[];
 }
 
 export type Details = MovieDetails | TVDetails | PersonDetails;

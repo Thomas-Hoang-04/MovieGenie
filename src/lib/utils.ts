@@ -1,93 +1,11 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import axios from "axios";
-import { Category, Details, MotionDetails, MovieDetails } from "./types";
+import { Details, GeneralDetails, MotionDetails, MovieDetails } from "./types";
 import { StaticImageData } from "next/image";
 import org_countries from "./countries.json";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
-};
-
-export const getSearchData = async ({
-  queryKey,
-  pageParam,
-}: {
-  queryKey: string[];
-  pageParam: number;
-}) => {
-  const [_key, query, type] = queryKey as [string, Category, string];
-  const res = await axios.request({
-    method: "GET",
-    url: `/api/search`,
-    params: {
-      type: type,
-      query: query,
-      page: pageParam,
-    },
-  });
-  return res.data;
-};
-
-const getCreditData = async (type: Category, id: string) => {
-  const credit = type == "movie" ? "credits" : "aggregate_credits";
-  const res = await axios.request({
-    method: "GET",
-    url: `https://api.themoviedb.org/3/${type}/${id}/${credit}`,
-    headers: {
-      Accept: "application/json",
-      Authorization: `${process.env.AUTH_KEY}`,
-    },
-  });
-  return res.data;
-};
-
-export const getPageData = async (type: Category, id: string) => {
-  const res = await axios.request({
-    method: "GET",
-    url: `https://api.themoviedb.org/3/${type}/${id}`,
-    headers: {
-      Accept: "application/json",
-      Authorization: `${process.env.AUTH_KEY}`,
-    },
-  });
-  if (type == "person") {
-    return { metadata: { ...res.data } };
-  }
-  const credit = await getCreditData(type, id);
-  return { metadata: { ...res.data }, credit: { ...credit } };
-};
-
-export const extractData = (data: any, type: Category): Details => {
-  switch (type) {
-    case "movie":
-      return {
-        title: data.title,
-        backdrop_path: data.backdrop_path,
-        release_date: data.release_date,
-        poster_path: data.poster_path,
-        overview: data.overview,
-        genres: data.genres,
-        tagline: data.tagline,
-        runtime: data.runtime,
-        status: data.status,
-      };
-    case "tv":
-      return {
-        title: data.name,
-        backdrop_path: data.backdrop_path,
-        release_date: data.first_air_date,
-        poster_path: data.poster_path,
-        overview: data.overview,
-        genres: data.genres,
-        tagline: data.tagline,
-        status: data.status,
-      };
-    case "person":
-      return data;
-    default:
-      return data;
-  }
 };
 
 export const imgSrc = (path: string, pldImg: StaticImageData) => {
@@ -109,6 +27,14 @@ export const runtime = (time: number) => {
       : `${Math.floor(time / 60)} hours ${time % 60} ${
           time % 60 === 1 ? "minute" : "minutes"
         }`
+    : undefined;
+};
+
+export const studios = (production_companies: GeneralDetails[]) => {
+  return production_companies?.length > 0
+    ? production_companies
+        .map((company: GeneralDetails) => company.name)
+        .join(", ")
     : undefined;
 };
 
