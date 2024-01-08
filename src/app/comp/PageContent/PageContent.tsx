@@ -35,7 +35,6 @@ const HiddenContent = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <Accordion type="single" collapsible>
       <AccordionItem
         value={title.toLowerCase()}
         title={title.toLowerCase()}
@@ -47,7 +46,6 @@ const HiddenContent = ({
           {children}
         </AccordionContent>
       </AccordionItem>
-    </Accordion>
   );
 };
 
@@ -138,8 +136,10 @@ export function MotionContent({ main }: { main: MotionDetails }) {
             <FontAwesomeIcon icon={faQuoteRight} className="ml-2 inline" />
           </blockquote>
         )}
-        <HiddenContent title="Overview">{main.overview}</HiddenContent>
-        <HiddenContent title="Cast"></HiddenContent>
+        <Accordion type="single" collapsible>
+          <HiddenContent title="Overview">{main.overview}</HiddenContent>
+          <HiddenContent title="Cast"></HiddenContent>
+        </Accordion>
       </section>
     </>
   );
