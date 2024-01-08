@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
-import { cn, extractData, getPageData, motionCheck } from "@/lib/utils";
+import { cn, motionCheck } from "@/lib/utils";
+import { extractData, getPageData } from "@/lib/data_utils";
 import { MotionContent } from "@/app/comp/PageContent/PageContent";
 
 export default async function Page({

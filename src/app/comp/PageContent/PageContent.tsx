@@ -8,7 +8,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { GeneralDetails, MotionDetails, ImageBlurData } from "@/lib/types";
+import {
+  GeneralDetails,
+  MotionDetails,
+  ImageBlurData,
+  CreditDetails,
+} from "@/lib/types";
 import {
   releaseDate,
   imgSrc,
@@ -16,16 +21,18 @@ import {
   movieCheck,
   statusVariant,
   TVStatusDisplay,
+  studios,
 } from "@/lib/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+import { ReactNode } from "react";
 
 const HiddenContent = ({
   title,
   children,
 }: {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   return (
     <Accordion type="single" collapsible>
@@ -49,14 +56,20 @@ const DetailContent = ({
   children,
 }: {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   return (
-    <hgroup className="flex italic">
-      <h2 className="font-semibold">{title}: &nbsp;</h2>
-      <p className="font-medium">{children}</p>
+    <hgroup className="flex italic flex-wrap mb-1">
+      <h2 className="font-bold w-max">
+        {title}: &nbsp;
+        <p className="font-medium inline">{children}</p>
+      </h2>
     </hgroup>
   );
+};
+
+const CarouselContent = () => {
+  return <></>;
 };
 
 export function MotionContent({ main }: { main: MotionDetails }) {
@@ -85,11 +98,15 @@ export function MotionContent({ main }: { main: MotionDetails }) {
         />
       </article>
       <section className="content">
-        <h1 className="text-2xl font-bold italic">{main.title}</h1>
+        <h1 className="text-[1.75rem] leading-snug font-bold italic">
+          {main.title}
+        </h1>
         <div className="flex gap-2 items-center mt-1">
-          <p className="text-lg font-medium italic">
-            {releaseDate(main.release_date)}
-          </p>
+          {main.release_date.length > 0 && (
+            <p className="text-lg font-medium italic">
+              {releaseDate(main.release_date)}
+            </p>
+          )}
           <Badge
             variant={statusVariant(main.status)}
             className="text-sm font-bold border-none rounded-full tracking-[0.0125rem] px-3">
@@ -105,6 +122,9 @@ export function MotionContent({ main }: { main: MotionDetails }) {
           ))}
         </section>
         <section className="mt-4">
+          <DetailContent title="Produced By">
+            {studios(main.production_companies)}
+          </DetailContent>
           {isMovie && main.runtime > 0 && (
             <DetailContent title="Runtime">
               {runtime(main.runtime)}
@@ -113,12 +133,13 @@ export function MotionContent({ main }: { main: MotionDetails }) {
         </section>
         {main.tagline?.length > 0 && (
           <blockquote className="quote">
-            <FontAwesomeIcon icon={faQuoteLeft} className="mr-2" />
+            <FontAwesomeIcon icon={faQuoteLeft} className="mr-2 inline" />
             {main.tagline}
-            <FontAwesomeIcon icon={faQuoteRight} className="ml-2" />
+            <FontAwesomeIcon icon={faQuoteRight} className="ml-2 inline" />
           </blockquote>
         )}
         <HiddenContent title="Overview">{main.overview}</HiddenContent>
+        <HiddenContent title="Cast"></HiddenContent>
       </section>
     </>
   );

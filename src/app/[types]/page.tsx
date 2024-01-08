@@ -3,7 +3,7 @@
 import { Category } from "@/lib/types";
 import dynamic from "next/dynamic";
 import "./page.scss";
-import { getSearchData } from "@/lib/utils";
+import { getSearchData } from "@/lib/data_utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useLayoutEffect, useState, useRef } from "react";
 import SearchBox from "../comp/SearchBox/SearchBox";
