@@ -2,10 +2,12 @@
 
 @layer components {
   .card {
-    @apply flex flex-col my-8 max-w-[300px] md:mt-6;
+    --img-w: 300px;
+    --img-h: calc(var(--img-w) * 1.5);
+    @apply flex flex-col my-8 max-w-[var(--img-w)] md:mt-6;
 
     img {
-      @apply rounded-t-xl object-cover max-h-[450px] phone-l:max-h-[600px];
+      @apply rounded-t-xl object-cover max-h-[var(--img-h)] phone-l:max-h-[600px];
       width: auto;
       aspect-ratio: 2/3;
     }

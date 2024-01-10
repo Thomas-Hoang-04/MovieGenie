@@ -23,6 +23,8 @@ import {
   statusVariant,
   TVStatusDisplay,
   studios,
+  character,
+  cn,
 } from "@/lib/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
@@ -32,6 +34,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 const HiddenContent = ({
@@ -130,8 +133,20 @@ export function MotionContent({
           ))}
         </section>
         <section className="mt-4">
-          <DetailContent title="Produced By">
+          <DetailContent title="Produced by">
             {studios(main.production_companies)}
+          </DetailContent>
+          <DetailContent title="Directed by">
+            {credit.crew
+              ?.filter((crew: any) => crew.job === "Director")
+              .map((crew: any) => crew.name)
+              .join(", ")}
+          </DetailContent>
+          <DetailContent title="Screenplay by">
+            {credit.crew
+              ?.filter((crew: any) => crew.job === "Screenplay")
+              .map((crew: any) => crew.name)
+              .join(", ")}
           </DetailContent>
           {isMovie && main.runtime > 0 && (
             <DetailContent title="Runtime">
@@ -148,23 +163,40 @@ export function MotionContent({
         )}
         <Accordion type="single" collapsible>
           <HiddenContent title="Overview">{main.overview}</HiddenContent>
-          <HiddenContent title="Cast">
+          <HiddenContent title="Casts">
             <Carousel
               opts={{
                 dragFree: true,
                 watchDrag: true,
+                align: "start",
+                breakpoints: {
+                  "(min-width: 768px)": {
+                    active: false,
+                  },
+                },
               }}>
-              <CarouselContent>
-                {credit.cast.map(cast => (
-                  <CarouselItem key={cast.id} className="basis-1/3">
+              <CarouselContent className="md:flex-wrap">
+                {credit.cast.map((cast, i) => (
+                  <CarouselItem
+                    key={cast.id}
+                    className={cn(
+                      "basis-auto flex flex-col",
+                      i !== 0 && "pl-6"
+                    )}>
                     <Image
                       src={imgSrc(cast.profile_path, personPldImg)}
                       alt={cast.name}
-                      width={100}
-                      height={150}
+                      width={150}
+                      height={225}
                       placeholder={ImageBlurData}
-                      className=""
+                      className="rounded-xl"
                     />
+                    <hgroup className="flex flex-col items-center mt-2">
+                      <h3 className="font-bold italic">{cast.name}</h3>
+                      <p className="text-teal-300/85 text-sm">
+                        {character(cast.character)}
+                      </p>
+                    </hgroup>
                   </CarouselItem>
                 ))}
               </CarouselContent>
