@@ -92,7 +92,7 @@ export const extractCreditData = (
     case "movie":
       return {
         cast: data.cast
-          .filter((cast: any) => cast.order < 10)
+          .filter((cast: any) => cast.order < 20)
           .map((cast: any) => {
             return {
               id: cast.id,

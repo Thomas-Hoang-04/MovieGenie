@@ -1,6 +1,7 @@
 import Image from "next/image";
 import motionBackDrop from "@/app/assets/images/motion-backdrop.jpg";
 import motionPldImg from "@/app/assets/images/motion-pld-img.png";
+import personPldImg from "@/app/assets/images/person-pld-img.webp";
 import {
   Accordion,
   AccordionContent,
@@ -26,6 +27,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 import { ReactNode } from "react";
+import { extractCreditData } from "@/lib/data_utils";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 const HiddenContent = ({
   title,
@@ -35,17 +42,17 @@ const HiddenContent = ({
   children?: React.ReactNode;
 }) => {
   return (
-      <AccordionItem
-        value={title.toLowerCase()}
-        title={title.toLowerCase()}
-        className="border-none">
-        <AccordionTrigger className="hover:no-underline font-semibold text-2xl pb-3">
-          {title}
-        </AccordionTrigger>
-        <AccordionContent className="text-base font-medium border-t border-teal-700 dark:border-slate-200 pt-3">
-          {children}
-        </AccordionContent>
-      </AccordionItem>
+    <AccordionItem
+      value={title.toLowerCase()}
+      title={title.toLowerCase()}
+      className="border-none">
+      <AccordionTrigger className="hover:no-underline font-semibold text-2xl pb-3">
+        {title}
+      </AccordionTrigger>
+      <AccordionContent className="text-base font-medium border-t border-teal-700 dark:border-slate-200 pt-3">
+        {children}
+      </AccordionContent>
+    </AccordionItem>
   );
 };
 
@@ -66,12 +73,15 @@ const DetailContent = ({
   );
 };
 
-const CarouselContent = () => {
-  return <></>;
-};
-
-export function MotionContent({ main }: { main: MotionDetails }) {
+export function MotionContent({
+  main,
+  raw_credit,
+}: {
+  main: MotionDetails;
+  raw_credit: CreditDetails;
+}) {
   const isMovie = movieCheck(main);
+  const credit = extractCreditData(raw_credit, isMovie ? "movie" : "tv");
 
   return (
     <>
@@ -138,7 +148,28 @@ export function MotionContent({ main }: { main: MotionDetails }) {
         )}
         <Accordion type="single" collapsible>
           <HiddenContent title="Overview">{main.overview}</HiddenContent>
-          <HiddenContent title="Cast"></HiddenContent>
+          <HiddenContent title="Cast">
+            <Carousel
+              opts={{
+                dragFree: true,
+                watchDrag: true,
+              }}>
+              <CarouselContent>
+                {credit.cast.map(cast => (
+                  <CarouselItem key={cast.id} className="basis-1/3">
+                    <Image
+                      src={imgSrc(cast.profile_path, personPldImg)}
+                      alt={cast.name}
+                      width={100}
+                      height={150}
+                      placeholder={ImageBlurData}
+                      className=""
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </HiddenContent>
         </Accordion>
       </section>
     </>

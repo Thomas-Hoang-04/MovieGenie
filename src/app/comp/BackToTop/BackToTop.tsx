@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export default function BackToTop() {
   const [show, setShow] = useState<boolean>(false);
   const handleScroll = useCallback(() => {
-    window.scrollY > 500 ? setShow(true) : setShow(false);
+    window.scrollY > 400 ? setShow(true) : setShow(false);
   }, []);
 
   if (typeof window !== "undefined") {
@@ -17,7 +17,7 @@ export default function BackToTop() {
   }
 
   return (
-    <div className="fixed w-full -mx-6 pt-4">
+    <div className="fixed w-full -mx-6 pt-4 z-[5]">
       <Button
         className={cn(
           "flex gap-2 justify-center rounded-full text-base mx-auto px-5 bg-teal-500 dark:bg-neutral-200 transition-all duration-300 hover:bg-teal-600 dark:hover:bg-neutral-200 md:hover:bg-teal-700 md:dark:hover:bg-teal-700 md:dark:hover:text-neutral-200 dark:text-teal-700",

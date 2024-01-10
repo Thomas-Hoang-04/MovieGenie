@@ -31,7 +31,9 @@ export default async function Page({
         </Link>
       </Button>
       <Separator className="seperator-id" />
-      {motionCheck(main) && <MotionContent main={main} />}
+      {motionCheck(main) && (
+        <MotionContent main={main} raw_credit={data.credit} />
+      )}
     </>
   );
 }
