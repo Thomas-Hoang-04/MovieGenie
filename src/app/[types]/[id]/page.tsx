@@ -1,13 +1,33 @@
 import { Category } from "@/lib/types";
+import type { Metadata } from "next";
 import Link from "next/link";
 import "./page.scss";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Separator } from "@/components/ui/separator";
-import { cn, motionCheck } from "@/lib/utils";
+import { cn, motionCheck, releaseDate } from "@/lib/utils";
 import { extractData, getPageData } from "@/lib/data_utils";
 import { MotionContent } from "@/app/comp/PageContent/PageContent";
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { types: Category; id: string };
+}): Promise<Metadata> => {
+  const data = await getPageData(params.types, params.id);
+  const main = extractData(data.metadata, params.types);
+  const title = motionCheck(main) ? main.title : main.name;
+  const release = motionCheck(main)
+    ? `(${releaseDate(main.release_date)})`
+    : "";
+
+  return {
+    title: `${title} ${
+      params.types === "tv" ? "(TV Series)" : ""
+    } ${release} - MovieGenie`,
+  };
+};
 
 export default async function Page({
   params,

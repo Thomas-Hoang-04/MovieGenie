@@ -34,6 +34,7 @@ export interface PersonCardProps {
   profile_path: string;
   type: "person";
   query: string;
+  gender: number;
 }
 
 export interface GeneralDetails {
@@ -57,7 +58,15 @@ export interface MovieDetails extends GeneralMotionDetails {
   runtime: number;
 }
 
-export interface TVDetails extends GeneralMotionDetails {}
+export interface TVSeriesCreator extends GeneralDetails {
+  profile_path: string;
+  gender: number;
+  credit_id: string;
+}
+
+export interface TVDetails extends GeneralMotionDetails {
+  created_by: TVSeriesCreator[];
+}
 
 export interface PersonDetails {
   name: string;
@@ -74,14 +83,20 @@ export interface CreditDetails {
   cast: {
     id: number;
     name: string;
-    character: string;
+    character?: string;
+    roles?: {
+      character: string;
+      episode_count: number;
+    }[];
     profile_path: string;
+    gender: number;
   }[];
-  crew: {
+  crew?: {
     id: number;
     name: string;
     job: string;
     profile_path: string;
+    gender: number;
   }[];
 }
 

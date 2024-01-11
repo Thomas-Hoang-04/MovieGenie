@@ -1,5 +1,8 @@
-import axios from "axios";
+import Axios from "axios";
 import { Category, CreditDetails, Details } from "./types";
+import { setupCache } from "axios-cache-interceptor";
+
+const axios = setupCache(Axios);
 
 const getCreditData = async (type: Category, id: string) => {
   const credit = type == "movie" ? "credits" : "aggregate_credits";
@@ -51,31 +54,27 @@ export const getPageData = async (type: Category, id: string) => {
 };
 
 export const extractData = (data: any, type: Category): Details => {
+  const motionBase = {
+    title: type == "movie" ? data.title : data.name,
+    backdrop_path: data.backdrop_path,
+    release_date: type == "movie" ? data.release_date : data.first_air_date,
+    poster_path: data.poster_path,
+    overview: data.overview,
+    genres: data.genres,
+    tagline: data.tagline,
+    status: data.status,
+    production_companies: data.production_companies,
+  };
   switch (type) {
     case "movie":
       return {
-        title: data.title,
-        backdrop_path: data.backdrop_path,
-        release_date: data.release_date,
-        poster_path: data.poster_path,
-        overview: data.overview,
-        genres: data.genres,
-        tagline: data.tagline,
+        ...motionBase,
         runtime: data.runtime,
-        status: data.status,
-        production_companies: data.production_companies,
       };
     case "tv":
       return {
-        title: data.name,
-        backdrop_path: data.backdrop_path,
-        release_date: data.first_air_date,
-        poster_path: data.poster_path,
-        overview: data.overview,
-        genres: data.genres,
-        tagline: data.tagline,
-        status: data.status,
-        production_companies: data.production_companies,
+        ...motionBase,
+        created_by: data.created_by,
       };
     case "person":
       return data;
@@ -88,38 +87,46 @@ export const extractCreditData = (
   data: any,
   type: Exclude<Category, "person">
 ): CreditDetails => {
-  switch (type) {
-    case "movie":
-      return {
-        cast: data.cast
-          .filter((cast: any) => cast.order < 16)
-          .map((cast: any) => {
-            return {
-              id: cast.id,
-              name: cast.name,
-              character: cast.character,
-              profile_path: cast.profile_path,
-            };
-          }),
-        crew: data.crew
-          .filter(
-            (crew: any) => crew.job === "Director" || crew.job === "Screenplay"
-          )
-          .map((crew: any) => {
-            return {
-              id: crew.id,
-              name: crew.name,
-              job: crew.job,
-              profile_path: crew.profile_path,
-            };
-          }),
-      };
-    case "tv":
-      return {
-        cast: data.cast,
-        crew: data.crew,
-      };
-    default:
-      return data;
-  }
+  return {
+    cast: data.cast
+      ?.filter((cast: any, i: number) =>
+        type == "movie" ? cast.order < 16 : i < 16
+      )
+      .map((cast: any) => {
+        const base = {
+          id: cast.id,
+          name: cast.name,
+          profile_path: cast.profile_path,
+          gender: cast.gender,
+        };
+        return type == "tv"
+          ? {
+              ...base,
+              roles: cast.roles.map((role: any) => {
+                return {
+                  character: role.character,
+                  episode_count: role.episode_count,
+                };
+              }),
+            }
+          : { ...base, character: cast.character };
+      }),
+    crew:
+      type == "movie"
+        ? data.crew
+            ?.filter(
+              (crew: any) =>
+                crew.job === "Director" || crew.job === "Screenplay"
+            )
+            .map((crew: any) => {
+              return {
+                id: crew.id,
+                name: crew.name,
+                job: crew.job,
+                profile_path: crew.profile_path,
+                gender: crew.gender,
+              };
+            })
+        : undefined,
+  };
 };

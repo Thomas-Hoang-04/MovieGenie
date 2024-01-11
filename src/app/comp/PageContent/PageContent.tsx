@@ -1,7 +1,8 @@
 import Image from "next/image";
 import motionBackDrop from "@/app/assets/images/motion-backdrop.jpg";
 import motionPldImg from "@/app/assets/images/motion-pld-img.png";
-import personPldImg from "@/app/assets/images/person-pld-img.webp";
+import personMalePld from "@/app/assets/images/person-male-pld.webp";
+import personFemalePld from "@/app/assets/images/person-female-pld.webp";
 import {
   Accordion,
   AccordionContent,
@@ -14,6 +15,7 @@ import {
   MotionDetails,
   ImageBlurData,
   CreditDetails,
+  TVSeriesCreator,
 } from "@/lib/types";
 import {
   releaseDate,
@@ -28,13 +30,11 @@ import {
 } from "@/lib/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
-import { ReactNode } from "react";
 import { extractCreditData } from "@/lib/data_utils";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 const HiddenContent = ({
@@ -49,7 +49,7 @@ const HiddenContent = ({
       value={title.toLowerCase()}
       title={title.toLowerCase()}
       className="border-none">
-      <AccordionTrigger className="hover:no-underline font-semibold text-2xl pb-3">
+      <AccordionTrigger className="hover:no-underline font-bold dark:font-semibold text-2xl pb-3">
         {title}
       </AccordionTrigger>
       <AccordionContent className="text-base font-medium border-t border-teal-700 dark:border-slate-200 pt-3">
@@ -133,25 +133,48 @@ export function MotionContent({
           ))}
         </section>
         <section className="mt-4">
-          <DetailContent title="Produced by">
-            {studios(main.production_companies)}
-          </DetailContent>
-          <DetailContent title="Directed by">
-            {credit.crew
-              ?.filter((crew: any) => crew.job === "Director")
-              .map((crew: any) => crew.name)
-              .join(", ")}
-          </DetailContent>
-          <DetailContent title="Screenplay by">
-            {credit.crew
-              ?.filter((crew: any) => crew.job === "Screenplay")
-              .map((crew: any) => crew.name)
-              .join(", ")}
-          </DetailContent>
-          {isMovie && main.runtime > 0 && (
-            <DetailContent title="Runtime">
-              {runtime(main.runtime)}
+          {main.production_companies?.length > 0 && (
+            <DetailContent title="Produced by">
+              {studios(main.production_companies)}
             </DetailContent>
+          )}
+          {!isMovie && main.created_by?.length > 0 && (
+            <DetailContent title="Created by">
+              {main.created_by
+                .map((creator: TVSeriesCreator) => creator.name)
+                .join(", ")}
+            </DetailContent>
+          )}
+          {isMovie && (
+            <>
+              {credit.crew !== undefined && (
+                <>
+                  {credit.crew?.filter((crew: any) => crew.job === "Director")
+                    .length > 0 && (
+                    <DetailContent title="Directed by">
+                      {credit.crew
+                        ?.filter((crew: any) => crew.job === "Director")
+                        .map((crew: any) => crew.name)
+                        .join(", ")}
+                    </DetailContent>
+                  )}
+                  {credit.crew?.filter((crew: any) => crew.job === "Screenplay")
+                    .length > 0 && (
+                    <DetailContent title="Screenplay by">
+                      {credit.crew
+                        ?.filter((crew: any) => crew.job === "Screenplay")
+                        .map((crew: any) => crew.name)
+                        .join(", ")}
+                    </DetailContent>
+                  )}{" "}
+                </>
+              )}
+              {main.runtime > 0 && (
+                <DetailContent title="Runtime">
+                  {runtime(main.runtime)}
+                </DetailContent>
+              )}
+            </>
           )}
         </section>
         {main.tagline?.length > 0 && (
@@ -161,7 +184,7 @@ export function MotionContent({
             <FontAwesomeIcon icon={faQuoteRight} className="ml-2 inline" />
           </blockquote>
         )}
-        <Accordion type="single" collapsible>
+        <Accordion type="multiple">
           <HiddenContent title="Overview">{main.overview}</HiddenContent>
           <HiddenContent title="Casts">
             <Carousel
@@ -176,29 +199,51 @@ export function MotionContent({
                 },
               }}>
               <CarouselContent className="md:flex-wrap">
-                {credit.cast.map((cast, i) => (
-                  <CarouselItem
-                    key={cast.id}
-                    className={cn(
-                      "basis-auto flex flex-col",
-                      i !== 0 && "pl-6"
-                    )}>
-                    <Image
-                      src={imgSrc(cast.profile_path, personPldImg)}
-                      alt={cast.name}
-                      width={150}
-                      height={225}
-                      placeholder={ImageBlurData}
-                      className="rounded-xl"
-                    />
-                    <hgroup className="flex flex-col items-center mt-2">
-                      <h3 className="font-bold italic">{cast.name}</h3>
-                      <p className="text-teal-300/85 text-sm">
-                        {character(cast.character)}
-                      </p>
-                    </hgroup>
-                  </CarouselItem>
-                ))}
+                {credit.cast.map((cast, i) => {
+                  const cast_format = isMovie
+                    ? character(cast.character as string)
+                    : character(
+                        cast.roles?.map(
+                          (role: any) => role.character
+                        )[0] as string
+                      );
+                  return (
+                    <CarouselItem
+                      key={cast.id}
+                      className={cn(
+                        "basis-auto flex flex-col items-center",
+                        i !== 0 && "pl-6"
+                      )}>
+                      <Image
+                        src={imgSrc(
+                          cast.profile_path,
+                          cast.gender === 1 ? personFemalePld : personMalePld
+                        )}
+                        alt={cast.name}
+                        width={150}
+                        height={225}
+                        placeholder={ImageBlurData}
+                        className="rounded-xl"
+                      />
+                      <hgroup className="flex flex-col items-center mt-2">
+                        <h3 className="font-bold italic text-[1.05rem]">
+                          {cast.name}
+                        </h3>
+                        {cast_format !== undefined &&
+                          (cast_format.length > 1 ? (
+                            <p className="dark:text-teal-300/85 text-sm text-center">
+                              <span>{cast_format[0]}</span>
+                              <span className="block">/{cast_format[1]}</span>
+                            </p>
+                          ) : (
+                            <p className="dark:text-teal-300/85 text-sm">
+                              {cast_format[0]}
+                            </p>
+                          ))}
+                      </hgroup>
+                    </CarouselItem>
+                  );
+                })}
               </CarouselContent>
             </Carousel>
           </HiddenContent>

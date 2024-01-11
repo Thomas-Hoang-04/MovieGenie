@@ -3,7 +3,8 @@ import "./Card.scss";
 import Link from "next/link";
 import { ImageBlurData, MotionCardProps, PersonCardProps } from "@/lib/types";
 import motionPldImg from "@/app/assets/images/motion-pld-img.png";
-import personPldImg from "@/app/assets/images/person-pld-img.webp";
+import personMalePld from "@/app/assets/images/person-male-pld.webp";
+import personFemalePld from "@/app/assets/images/person-female-pld.webp";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -50,13 +51,17 @@ export function PersonCard({
   id,
   name,
   profile_path,
+  gender,
   type,
   query,
 }: PersonCardProps): React.ReactElement {
   return (
     <article className="card">
       <Image
-        src={imgSrc(profile_path, personPldImg)}
+        src={imgSrc(
+          profile_path,
+          gender == 1 ? personFemalePld : personMalePld
+        )}
         alt={name}
         width={400}
         height={600}

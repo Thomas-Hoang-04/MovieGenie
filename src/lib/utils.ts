@@ -102,5 +102,5 @@ export const TVStatusDisplay = (status: string) => {
 };
 
 export const character = (char: string) => {
-  return char && char.includes("/") ? char.split("/")[0] : char;
+  return char.split("/");
 };

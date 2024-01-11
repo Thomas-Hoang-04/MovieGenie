@@ -36,6 +36,7 @@ export async function GET(request: NextRequest) {
             id: item.id,
             name: item.name,
             profile_path: item.profile_path,
+            gender: item.gender,
           };
       }
     });
