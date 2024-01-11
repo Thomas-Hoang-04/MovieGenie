@@ -226,7 +226,7 @@ export function MotionContent({
                         className="rounded-xl"
                       />
                       <hgroup className="flex flex-col items-center mt-2">
-                        <h3 className="font-bold italic text-[1.05rem]">
+                        <h3 className="font-bold italic text-[1.05rem] char">
                           {cast.name}
                         </h3>
                         {cast_format !== undefined &&
@@ -236,7 +236,7 @@ export function MotionContent({
                               <span className="block">/{cast_format[1]}</span>
                             </p>
                           ) : (
-                            <p className="dark:text-teal-300/85 text-sm">
+                            <p className="dark:text-teal-300/85 text-sm char">
                               {cast_format[0]}
                             </p>
                           ))}

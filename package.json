@@ -1,6 +1,7 @@
 {
-  "name": "gdsc2",
+  "name": "moviegenie",
   "version": "2.0.0",
+  "description": "MovieGenie is a movie wiki app that helps you find details on your favourite movies & TV series.",
   "homepage": "https://moviegenie.vercel.app",
   "private": true,
   "scripts": {

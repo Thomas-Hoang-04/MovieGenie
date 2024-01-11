@@ -28,4 +28,8 @@
   .quote {
     @apply italic ms-6 me-6 dark:text-teal-400 text-center font-bold dark:font-semibold text-xl my-4 px-5;
   }
+
+  .char {
+    @apply max-w-[15ch] text-ellipsis overflow-clip whitespace-nowrap;
+  }
 }
