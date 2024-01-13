@@ -14,7 +14,7 @@
   }
 
   .card__content {
-    @apply flex flex-col gap-2 p-6 pt-3 rounded-b-xl shadow-lg dark:shadow-none bg-neutral-50 dark:bg-teal-800;
+    @apply flex flex-col h-full gap-2 p-6 pt-3 rounded-b-xl shadow-lg dark:shadow-none bg-neutral-50 dark:bg-teal-800;
   }
 
   .card__title {
@@ -22,7 +22,7 @@
   }
 
   .card__date {
-    @apply text-lg italic font-semibold text-teal-800/70 dark:text-neutral-300;
+    @apply text-lg italic mt-2 font-semibold text-teal-800/70 dark:text-neutral-300;
   }
 
   .card__btn {

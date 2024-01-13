@@ -90,7 +90,7 @@ export const extractCreditData = (
   return {
     cast: data.cast
       ?.filter((cast: any, i: number) =>
-        type == "movie" ? cast.order < 16 : i < 16
+        type == "movie" ? cast.order < 18 : i < 18
       )
       .map((cast: any) => {
         const base = {

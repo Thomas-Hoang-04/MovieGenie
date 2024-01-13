@@ -28,8 +28,10 @@ export function MotionCard({
         placeholder={ImageBlurData}
       />
       <section className="card__content">
-        <h1 className="card__title">{title}</h1>
-        <p className="card__date">{releaseDate(release_date)}</p>
+        <div className="grow">
+          <h1 className="card__title">{title}</h1>
+          <p className="card__date">{releaseDate(release_date)}</p>
+        </div>
         <Button
           className="card__btn"
           onClick={() => {

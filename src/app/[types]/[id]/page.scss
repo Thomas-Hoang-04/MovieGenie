@@ -2,11 +2,11 @@
 
 @layer components {
   .back {
-    @apply flex items-center gap-2 w-10 md:w-max bg-teal-600 dark:text-teal-700 font-semibold text-base rounded-full dark:bg-slate-200;
+    @apply flex items-center gap-2 w-10 md:w-max bg-teal-600 dark:text-teal-700 xl:ml-6 font-semibold text-base rounded-full dark:bg-slate-200 laptop:text-[1.2rem];
   }
 
   .motion-link {
-    @apply relative top-8 z-10;
+    @apply relative top-8 z-10 md:top-10;
   }
 
   .seperator-id {
@@ -14,22 +14,32 @@
   }
 
   .content {
-    @apply w-full grow -mt-[4.5rem] text-teal-800 dark:text-neutral-200;
+    @apply w-full grow -mt-[4.5rem] text-teal-800 relative bottom-10 laptop:bottom-16 dark:text-neutral-200;
   }
 
   .badge {
-    @apply text-sm font-bold text-teal-700 bg-emerald-200/55 dark:bg-slate-200 border-none rounded-full;
+    @apply text-sm md:text-lg md:px-3 font-bold text-teal-700 bg-emerald-200/55 dark:bg-slate-200 border-none rounded-full;
   }
 
   .poster {
-    @apply relative bottom-24 shadow-none;
+    @apply relative pb-6;
   }
 
   .quote {
-    @apply italic ms-6 me-6 dark:text-teal-400 text-center font-bold dark:font-semibold text-xl my-4 px-5;
+    @apply italic ms-6 me-6 dark:text-teal-400 text-center font-bold dark:font-semibold text-xl md:text-[1.7rem] laptop:my-10 laptop:text-[2rem] laptop:leading-9 md:my-6 my-4 px-5;
   }
 
   .char {
-    @apply max-w-[15ch] text-ellipsis overflow-clip whitespace-nowrap;
+    @apply max-md:max-w-[15ch] max-md:text-ellipsis max-md:overflow-clip max-md:whitespace-nowrap;
+  }
+
+  @media (min-width: 1024px) {
+    .main-content {
+      @apply bg-teal-700 p-4 pb-0 rounded-lg grid gap-5 grid-cols-[200px_1fr] xl:mx-20;
+    }
+
+    .main-details {
+      @apply text-wrap;
+    }
   }
 }

@@ -37,7 +37,7 @@ export default function RootLayout({
       lang="en"
       className={`${Blockletter.className} ${Hauora.className}`}
       suppressHydrationWarning>
-      <body className="dark:bg-dark bg-neutral-200 bg-opacity-[0.5]">
+      <body className="dark:bg-dark bg-neutral-200 bg-opacity-[0.5] pb-20">
         <Provider>
           <BackToTop />
           <article className="max-w-[1440px] mx-auto">
