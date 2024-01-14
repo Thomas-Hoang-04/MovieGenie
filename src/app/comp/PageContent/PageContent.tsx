@@ -40,16 +40,18 @@ import {
 const HiddenContent = ({
   title,
   children,
+  className,
 }: {
   title: string;
   children?: React.ReactNode;
+  className?: string;
 }) => {
   return (
     <AccordionItem
       value={title.toLowerCase()}
       title={title.toLowerCase()}
-      className="border-none md:mb-2">
-      <AccordionTrigger className="hover:no-underline font-bold dark:font-semibold text-2xl md:text-3xl pb-3">
+      className={cn("border-none md:mb-2", className)}>
+      <AccordionTrigger className="hover:no-underline font-bold dark:font-semibold text-2xl md:text-3xl pb-3 lg:text-4xl">
         {title}
       </AccordionTrigger>
       <AccordionContent className="text-base font-medium border-t border-teal-700 dark:border-slate-200 pt-3">
@@ -67,7 +69,7 @@ const DetailContent = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <p className="italic text-wrap font-medium mb-1 md:text-xl gap-1 md:mt-2">
+    <p className="italic text-wrap font-medium mb-1 md:text-xl gap-1 md:mt-1">
       <span className="font-bold">{title}: &nbsp;</span>
       {children}
     </p>
