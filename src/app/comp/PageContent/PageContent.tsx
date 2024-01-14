@@ -44,17 +44,21 @@ const HiddenContent = ({
 }: {
   title: string;
   children?: React.ReactNode;
-  className?: string;
+  className?: { root?: string; content?: string };
 }) => {
   return (
     <AccordionItem
       value={title.toLowerCase()}
       title={title.toLowerCase()}
-      className={cn("border-none md:mb-2", className)}>
+      className={cn("border-none md:mb-2 lg:mb-4", className?.root)}>
       <AccordionTrigger className="hover:no-underline font-bold dark:font-semibold text-2xl md:text-3xl pb-3 lg:text-4xl">
         {title}
       </AccordionTrigger>
-      <AccordionContent className="text-base font-medium border-t border-teal-700 dark:border-slate-200 pt-3">
+      <AccordionContent
+        className={cn(
+          "text-base font-medium border-t border-teal-700 dark:border-slate-200 pt-3",
+          className?.content
+        )}>
         {children}
       </AccordionContent>
     </AccordionItem>
@@ -95,7 +99,7 @@ export function MotionContent({
           width={1440}
           height={900}
           placeholder={ImageBlurData}
-          className="dark:opacity-75 relative xl:rounded-b-md border-none"
+          className="dark:opacity-75 relative xl:rounded-lg border-none xl:-mt-6"
         />
       </article>
       <main className="content">
@@ -193,7 +197,7 @@ export function MotionContent({
         )}
         <Accordion type="multiple">
           <HiddenContent title="Overview">
-            <p className="md:text-xl font-medium">{main.overview}</p>
+            <p className="md:text-xl font-medium me-4">{main.overview}</p>
           </HiddenContent>
           <HiddenContent title="Casts">
             <Carousel

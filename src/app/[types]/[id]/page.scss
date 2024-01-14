@@ -10,7 +10,7 @@
   }
 
   .seperator-id {
-    @apply bg-teal-700 dark:bg-teal-600 rounded-full -mt-6 h-1 w-screen xl:w-full max-w-[1440px] max-xl:-mx-6;
+    @apply bg-teal-700 dark:bg-teal-600 rounded-full -mt-6 h-1 w-screen xl:w-full max-w-[1440px] max-xl:-mx-6 xl:hidden;
   }
 
   .content {
@@ -35,7 +35,7 @@
 
   @media (min-width: 976px) {
     .main-content {
-      @apply bg-teal-100/95 shadow-md dark:shadow-none dark:bg-teal-700/95 p-6 pb-0 rounded-xl grid gap-6 grid-cols-[200px_1fr] mx-8 xl:mx-20;
+      @apply bg-teal-100/95 shadow-md dark:shadow-none dark:bg-teal-700/95 p-6 pb-1 rounded-xl grid gap-6 grid-cols-[200px_1fr] mx-8 xl:mx-20;
     }
 
     .main-details {
