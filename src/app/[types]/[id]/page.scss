@@ -18,7 +18,7 @@
   }
 
   .badge {
-    @apply text-sm md:text-lg md:px-3 font-bold dark:text-teal-700 bg-emerald-200/65 lg:bg-teal-600 lg:text-neutral-100 dark:bg-slate-200 border-none rounded-full;
+    @apply text-sm md:text-lg md:px-3 font-bold text-teal-700 bg-emerald-200 lg:bg-teal-600 lg:text-neutral-100 dark:bg-slate-200 border-none rounded-full;
   }
 
   .poster {
