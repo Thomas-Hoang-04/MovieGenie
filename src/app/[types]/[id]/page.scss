@@ -33,7 +33,7 @@
     @apply max-md:max-w-[15ch] max-md:text-ellipsis max-md:overflow-clip max-md:whitespace-nowrap;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 976px) {
     .main-content {
       @apply bg-teal-700 p-4 pb-0 rounded-lg grid gap-5 grid-cols-[200px_1fr] xl:mx-20;
     }
