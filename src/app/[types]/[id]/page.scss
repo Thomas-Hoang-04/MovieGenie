@@ -2,7 +2,7 @@
 
 @layer components {
   .back {
-    @apply flex items-center gap-2 w-10 md:w-max bg-teal-600 dark:text-teal-700 xl:ml-6 font-semibold text-base rounded-full dark:bg-slate-200 laptop:text-[1.2rem];
+    @apply flex items-center gap-2 w-10 md:w-max bg-teal-600 hover:bg-teal-600 lg:hover:bg-teal-500 dark:text-teal-700 xl:ml-6 font-semibold text-base rounded-full dark:bg-slate-200 dark:hover:bg-slate-200 dark:lg:hover:bg-teal-600 dark:lg:hover:text-neutral-200 laptop:text-[1.2rem];
   }
 
   .motion-link {
